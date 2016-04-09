@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Photo sphere with three.js</title>
+	<style>
+		body { margin: 10; overflow: hidden; background-color: #ffffff; }
+		.tm  { position: absolute; top: 20px; right: 20px; }
+    </style>	
+</head>
+<body>
+	<div id="sphere"></div>
+	
+	<script src="/js/three.min.js"></script>
+    <script src="/js/OrbitControls.js"></script>	
+	<script src="/js/Detector.js"></script>		
+
+	<script>
+
+// http://threejs.org/docs/#Reference/Loaders/TextureLoader
+		var webglEl = document.getElementById('sphere');
+
+		
+		var width  = window.innerWidth-20,
+			height = window.innerHeight-20;
+			
+		var scene = new THREE.Scene();
+		
+		var camera = new THREE.PerspectiveCamera(55, width / height, .1, 1000);
+		    camera.position.x = 1;
+		
+		var renderer = new THREE.WebGLRenderer(); 
+		    renderer.setSize(width, height);
+        
+/*	*/	    
+        var geometry = new THREE.SphereGeometry( 4, 64, 32 );
+            geometry.rotateY(90);
+      
+        var livingRoomMaterial = new THREE.MeshBasicMaterial();
+            //material.wireframe = true;
+            livingRoomMaterial.map = THREE.ImageUtils.loadTexture('CompositeKitchenImproved.jpg');
+            livingRoomMaterial.shading = THREE.SmoothShading;
+            livingRoomMaterial.transparent = true;
+            
+        var sphere = new THREE.Mesh( geometry, livingRoomMaterial );
+            sphere.scale.x = -1;
+            scene.add( sphere );   
+
+/* */            
+        var boxGeometry = new THREE.BoxGeometry( .5, .5, .5 );
+        
+        var boxMaterial = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+        
+        var cube = new THREE.Mesh( boxGeometry, boxMaterial );
+            cube.position.set( 5, -5, 0 );
+
+            scene.add( cube );     
+        
+
+		var controls = new THREE.OrbitControls(camera);
+            controls.noPan = true;
+            controls.noZoom = true; 
+            //controls.autoRotate = true;
+            controls.autoRotateSpeed = 0.5;
+            webglEl.appendChild(renderer.domElement);
+            render();
+		
+		function render() {
+			controls.update();
+			requestAnimationFrame(render);
+			renderer.render(scene, camera);
+					    webglEl.appendChild(renderer.domElement);
+
+		}
+		
+		function onMouseWheel(event) {
+			event.preventDefault();
+			
+			if (event.wheelDeltaY) { // WebKit
+				camera.fov -= event.wheelDeltaY * 0.05;
+			} else if (event.wheelDelta) { 	// Opera / IE9
+				camera.fov -= event.wheelDelta * 0.05;
+			} else if (event.detail) { // Firefox
+				camera.fov += event.detail * 1.0;
+			}
+			// ORIGINAL camera.fov = Math.max(40, Math.min(100, camera.fov));
+			camera.fov = Math.max(25, Math.min(55, camera.fov));
+			camera.updateProjectionMatrix();
+		}
+		
+	    window.addEventListener('resize', 
+            function () {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            }
+        );
+		
+		document.addEventListener('mousewheel', onMouseWheel, false);
+		document.addEventListener('DOMMouseScroll', onMouseWheel, false);
+/*		
+		// pressing a key (actually releasing it) changes the texture map
+			document.onkeyup = function(event){
+			
+				panoramaNumber = (panoramaNumber + 1) % panoramasArray.length
+				sphereMaterial.map = THREE.ImageUtils.loadTexture(panoramasArray[panoramaNumber])
+			
+    			}
+*/		
+	</script>
+</body>
+</html>

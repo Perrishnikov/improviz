@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Photo sphere with three.js</title>
+	<style>
+		body { margin: 10,10,10,10; overflow: hidden; background-color: #ffffff; }
+		canvas {width: 100%; height: 100%;}
+    </style>
+	<script src="/js/three.min.js"></script>
+	<script src="/js/Detector.js"></script>
+    <script src="/js/OrbitControls.js"></script>	
+    <script type="text/javascript" src="/js/dat.gui.js"></script>
+</head>
+<body>
+	<div id="3jsCanvas"></div>
+
+	<script>
+		var canvas = document.getElementById("3jsCanvas");
+		
+		var scene, camera, renderer, controls; //normal variables
+
+		var gui; //custom variables
+
+        init();
+        animate();
+
+		function init(){  
+			scene = new THREE.Scene();
+
+			camera = new THREE.PerspectiveCamera(55, (window.innerWidth) / (window.innerHeight), .1, 10);
+		    camera.position.x = 1;
+	    	
+		var rooms = []; 
+
+		    //MATERIAL
+
+		    rooms[0] = {
+		    	roomName: 'Living Room',
+		    	material : new THREE.MeshBasicMaterial(),
+	            map : THREE.ImageUtils.loadTexture('CompositeLivingRoom.jpg'),
+	            shading : THREE.SmoothShading,
+	            transparent : true
+		    };
+
+		    rooms[1] = {
+		    roomName: 'Kitchen',
+		    	material : new THREE.MeshBasicMaterial(),
+		    	map : THREE.ImageUtils.loadTexture('CompositeKitchenImproved.jpg'),
+	            shading : THREE.SmoothShading,
+	            transparent : true
+		    }
+
+			var selectedRoom = 1;           
+
+            var activeRoom = rooms[selectedRoom].material;
+            activeRoom.shading = rooms[selectedRoom].shading;
+            activeRoom.transparent = rooms[selectedRoom].transparent;
+            activeRoom.map = rooms[selectedRoom].map;
+
+	    	
+		    renderer.setSize(window.innerWidth, window.innerHeight);
+		    canvas.appendChild(renderer.domElement); //document.body.appendChild(renderer.domElement);
+			
+		//GLOBE
+	        // http://threejs.org/docs/#Reference/Loaders/TextureLoader
+	        //Create texture loader and variables for different room materials
+	        geometry = new THREE.SphereGeometry( 4, 64, 32 );
+            geometry.rotateY(160);
+	        globe = new THREE.Mesh( geometry, activeRoom );
+            globe.scale.x = -1;
+            scene.add(globe);   
+        
+        //BOX
+	        var boxGeometry = new THREE.BoxGeometry( .5, .5, .5 );
+    	    var boxMaterial = new THREE.MeshBasicMaterial( {color: 0x00ff00} );
+	        cube = new THREE.Mesh( boxGeometry, boxMaterial );
+	        cube.position.set( 1, -1, 0 );
+	        scene.add(cube);     
+	        
+	    //CAMERA CONTROLS    
+        	controls = new THREE.OrbitControls(camera);
+            controls.noPan = false; //dont know
+            controls.noZoom = true; //keep - restricts zoom 
+		
+        displayGUI();
+
+    	}
+        
+        //GUI 
+        	//Solution: If you use a mouse-controlled camera with three.js, you have to comment the following line in the THREE.OrbitControls.onMouseDown of the mouseDown action: event.preventDefault(); 
+        	//http://stackoverflow.com/questions/28237414/three-js-cannot-change-value-in-dat-gui/28239323#28239323
+
+		function displayGUI(){
+			var gui = new dat.GUI();
+			
+			var variable01;
+
+			parameters = {
+				room: 'name',
+				color: "#0000ff",
+				reset: function() { resetGUI() },
+			}
+
+			room = gui.add (parameters, 'room', ["Living Room", "Kitchen"])
+			room.onChange(function() {
+				if(parameters.room == "Living Room"){
+					console.log("Value changed to:" + parameters.room);
+					selectedRoom = 0;
+					activeRoom = rooms[selectedRoom].material;
+		            activeRoom.map = rooms[selectedRoom].map;
+		            activeRoom.shading = rooms[selectedRoom].shading;
+		            activeRoom.transparent = rooms[selectedRoom].transparent;
+				}
+				else if(parameters.room == "Kitchen"){
+					console.log("Value changed to:" + parameters.room);					
+					selectedRoom = 1;
+					activeRoom = rooms[selectedRoom].material;
+		            activeRoom.map = rooms[selectedRoom].map;					
+		            activeRoom.shading = rooms[selectedRoom].shading;
+		            activeRoom.transparent = rooms[selectedRoom].transparent;
+				}
+			});	
+
+			//var obj = { add:function(){ console.log("clicked") }};gui.add(obj,'add');
+									
+			var color = gui.addColor(parameters, 'color').name('Color');
+			color.onChange(function(variable01){globe.material.color.setHex(variable01.replace('#', "0x"));});
+						
+			gui.open();
+		}
+		
+
+		updateMaterial();
+
+		function updateMaterial(){}
+
+		/*
+// Pass index number received from room.onChange here.
+// Then use that to set our selectedRoom variable.
+// Use that selectedRoom variable to set our ActiveRoom.  May want to create a function, but feel free to duplicate code short term.
+*/
+		function animate(){
+			controls.update(); //weird starting behavior without this
+			requestAnimationFrame(animate);
+            render();	
+		}
+
+		function render() {
+			renderer.clear();
+			renderer.render(scene, camera);
+		}
+		
+		document.addEventListener('mousewheel', onMouseWheel, false);
+		document.addEventListener('DOMMouseScroll', onMouseWheel, false);
+		
+		function onMouseWheel(event) {
+			event.preventDefault();
+			
+			if (event.wheelDeltaY) { // WebKit
+				camera.fov -= event.wheelDeltaY * 0.05;
+			} else if (event.wheelDelta) { 	// Opera / IE9
+				camera.fov -= event.wheelDelta * 0.05;
+			} else if (event.detail) { // Firefox
+				camera.fov += event.detail * 1.0;
+			}
+			
+			camera.fov = Math.max(25, Math.min(55, camera.fov)); // ORIGINAL camera.fov = Math.max(40, Math.min(100, camera.fov));
+			camera.updateProjectionMatrix();
+		}
+		/*
+	    window.addEventListener('resize', function () {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            }
+        );
+		*/
+		
+/*		
+		// pressing a key (actually releasing it) changes the texture map
+			document.onkeyup = function(event){
+			
+				panoramaNumber = (panoramaNumber + 1) % panoramasArray.length
+				sphereMaterial.map = THREE.ImageUtils.loadTexture(panoramasArray[panoramaNumber])
+			
+    			}
+*/		
+	</script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Photo sphere with three.js</title>
+	<style>
+		body { margin: 10,10,10,10; overflow: hidden; background-color: #ffffff; }
+		canvas {width: 100%; height: 100%;}
+    </style>
+	<script src="/js/three.min.js"></script>
+    <script src="/js/OrbitControls.js"></script>
+    <script type="text/javascript" src="/js/dat.gui.js"></script>
+  	<script src="/js/threex.windowresize.js"></script>
+
+
+</head>
+<body>
+	<div id="3jsCanvas"></div>
+
+	<script>
+	//standard global variables
+	var scene, camera, renderer, controls;
+
+	//custom global variables
+	var canvas;
+
+	init();
+	animate();
+
+	//FUNCTIONS
+	function init(){
+
+			scene = new THREE.Scene();
+
+			//CANVAS
+	    	camera = new THREE.PerspectiveCamera(55, window.innerWidth/window.innerHeight, 0.01, 10);
+		    camera.position.set (0, 0, 1);
+
+			//CAMERA CONTROLS
+	    	controls = new THREE.OrbitControls(camera);
+	        //controls.noPan = true; //dont know
+	        //controls.noZoom = true; //keep - restricts zoom
+
+
+			//RENDERER
+	        renderer = new THREE.WebGLRenderer({antialias : true, alpha:true});
+	        renderer.setSize(window.innerWidth, window.innerHeight);
+	        canvas = document.getElementById("3jsCanvas");
+	        canvas.appendChild(renderer.domElement);
+
+			// EVENTS
+			THREEx.WindowResize(renderer, camera); //https://github.com/jeromeetienne/threex.windowresize/blob/master/threex.windowresize.js
+			document.addEventListener('mousewheel', onMouseWheel, true); //allows zoom; true or false?
+			document.addEventListener('DOMMouseScroll', onMouseWheel, true); //allows zoom; true or false?
+
+	/*
+			var livingRoom = {roomName:"Living Room", roomTexture: "", anotherName: 99};
+			livingRoom.roomTexture = loader;
+			console.log(livingRoom.roomTexture);
+
+			var loader = new THREE.TextureLoader();
+				loader.load('CompositeLivingRoom.jpg', function ( texture ) {
+					var material02 = new THREE.MeshBasicMaterial( {map: texture});
+
+			        matOne = new THREE.MeshLambertMaterial(material[1]);
+	        		matTwo = new THREE.MeshLambertMaterial(material[2]);
+
+			        geometry = new THREE.SphereGeometry( 4, 64, 32 );
+		            geometry.rotateY(160);
+
+			        globe = new THREE.Mesh( geometry, material02 );
+		            globe.scale.x = -1;
+		            scene.add(globe);
+				});
+	*/
+				var matOne = new THREE.MeshBasicMaterial();
+	            matOne.map = THREE.ImageUtils.loadTexture('CompositeLivingRoom.jpg');
+	            //matOne.map = THREE.ImageUtils.loadTexture('Floor-LivingRoom.png');
+	            matOne.shading = THREE.SmoothShading;
+	            matOne.transparent = true;
+
+	            var matTwo = new THREE.MeshBasicMaterial();
+	            matTwo.map = THREE.ImageUtils.loadTexture('CompositeKitchenImproved.jpg');
+	            matTwo.shading = THREE.SmoothShading;
+	            matTwo.transparent = true;
+
+				//GEOMETRY
+				geometry = new THREE.SphereGeometry( 4, 64, 32 );
+		        geometry.rotateY(160);
+
+				//GLOBE
+				globe = new THREE.Mesh( geometry, matOne );
+		        globe.scale.x = -1;
+		        scene.add(globe);
+
+			//http://stackoverflow.com/questions/24394386/how-can-i-change-the-texture-in-a-blender-model-loaded-into-three-js-after-its/24769214#24769214
+			//GUI CONTROL PANEL
+	        var room = new function(){
+		        this.changeRoom = function (e)
+		        {
+		        switch (e)
+		            {
+		        case "Living Room":
+		        globe.material = matOne;
+		        break;
+
+		        case "Kitchen":
+		        globe.material = matTwo;
+		        break;
+
+		        // case "Empty":
+		        // globe.material = matThree;
+		        // break;
+		            }
+		        }
+		    }
+
+		    //GUI CONTROLS
+		    var gui = new dat.GUI();
+		    gui.add(room, "changeRoom", ['Living Room', 'Kitchen']).onChange(room.changeRoom);
+
+	        //CUBE
+	        var geometry = new THREE.CubeGeometry(1,1,1);
+	        var material01 = new THREE.MeshBasicMaterial({color: 0x00ff00});
+	        var cube = new THREE.Mesh(geometry, material01);
+	        cube.position.set( 0, 0, -5 );
+	        scene.add(cube);
+		}
+
+		function animate(){ //called 60 times per second
+			requestAnimationFrame(animate);
+			render();
+		}
+
+    	function render() {
+			renderer.clear();
+			renderer.render(scene, camera);
+		}
+
+		function onMouseWheel(event) {
+			event.preventDefault();
+
+			if (event.wheelDeltaY) { // WebKit
+				camera.fov -= event.wheelDeltaY * 0.05;
+			} else if (event.wheelDelta) { 	// Opera / IE9
+				camera.fov -= event.wheelDelta * 0.05;
+			} else if (event.detail) { // Firefox
+				camera.fov += event.detail * 1.0;
+			}
+
+			camera.fov = Math.max(25, Math.min(55, camera.fov)); //updates camera FOV from original
+			camera.updateProjectionMatrix(); //required to change FOV
+		}
+
+
+
+
+    </script>
+</body>
+</html>

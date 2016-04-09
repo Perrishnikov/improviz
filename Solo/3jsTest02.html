@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Kitchen Scene with three.js</title>
+	<style>
+		body { background-color: #fff00f; }
+		canvas { width: 100%; height: 100%; }
+    </style>	
+    <!-- -->
+</head>
+<body>
+	
+	<div id="page">
+		<canvas width="100%" height="100%"></canvas></div>
+	<script src="/js/three.min.js"></script>
+    <script src="/js/OrbitControls.js"></script>	
+	<script src="/js/Detector.js"></script>		
+
+    <script src="/js/DAT.GUI.MIN.js"></script>
+
+	<script>
+
+		var scene, camera, renderer;
+
+		var sphere;
+	
+		var webglEl = document.getElementById("page");
+
+		init();
+		animate();
+
+		function init(){
+			scene = new THREE.Scene();
+			
+			camera = new THREE.PerspectiveCamera(55, window.innerwidth / window.innerheight, .1, 1000);
+			camera.position.x = 1;
+			
+			renderer = new THREE.WebGLRenderer(); 
+			renderer.setSize(window.innerwidth, window.innerheight);
+			webglEl.appendChild(renderer.domElement);
+			//document.body.appendChild(renderer.domElement);
+
+			var globe = new THREE.SphereGeometry( 4, 64, 32 );
+            	globe.rotateY(90);
+      
+	        var livingRoomMaterial = new THREE.MeshBasicMaterial();
+	        	livingRoomMaterial.map = THREE.ImageUtils.loadTexture('CompositeKitchenImproved.jpg');
+	            livingRoomMaterial.shading = THREE.SmoothShading;
+	            livingRoomMaterial.transparent = true;
+	            
+	        sphere = new THREE.Mesh( globe, livingRoomMaterial );
+	            sphere.scale.x = -1;
+	            scene.add( sphere );  
+		}
+
+		function animate(){
+			requestAnimationFrame(animate);
+			render()
+		}
+        
+		function render(){
+			//renderer.clear();
+			renderer.render(scene, camera);
+		}
+		
+	</script>
+</body>
+</html>
