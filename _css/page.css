@@ -36,13 +36,19 @@ body {
 
     /*needed to position right nav*/
     .navbar-right .dropdown-menu {
+        /*positions right nav on right*/
         right: 0!important;
         left: auto!important;
     }
 
+    .navbar-right {
+        /*aligns "Menu" with jumbotron*/
+        margin-right: 0px!important;
+    }
+
     .dropdown-menu  {
         position: absolute!important;
-        top: 50px;
+        top: 48px;
         border-radius: 4px;
         background-color: #fff!important;
         border: 1px solid rgba(0, 0, 0, .15);
