@@ -1,0 +1,53 @@
+
+.nav > li > a {
+  position: relative;
+  display: block;
+  padding: 10px 15px 10px 15px
+}
+
+
+@media (min-width: 768px) {
+  .navbar-nav {
+    float: left;
+    margin: 0;
+  }
+  .navbar-nav > li {
+    float: left;
+  }
+  .navbar-nav > li > a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+  /*corrects issue with pushing navbar down*/
+  .lead {
+       margin-bottom: 0px;
+   }
+
+}
+/*change padding to make same size as "a"*/
+.navbar-brand {
+  padding: 10px 15px 10px 15px;
+  font-size: 20px;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: 750px;
+    background-color: red;
+  }
+  .nav > li > a {
+    position: relative;
+    display: block;
+    padding: 10px 15px 10px 15px
+  }
+  .lead {
+     margin-bottom: 20px;
+    }
+}
+/*change from 48 to 30px*/
+ @media screen and (min-width: 768px) {
+    .jumbotron {
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+}
