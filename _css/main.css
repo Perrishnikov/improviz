@@ -3,7 +3,7 @@ body {
     padding-bottom: 30px;
 }
 
-/*-----------navbar-----------*/
+/*-----------------------------navbar--------------------------*/
 /*prevents items from stacking on collapse*/
 .navbar-nav>li, .navbar-nav {
     float: left!important;
@@ -69,13 +69,25 @@ body {
         background-repeat: repeat-x;
     }
 }
-/*------------jumbotron-----------*/
+/*---------------------------jumbotron---------------------------*/
 .jumbotron {
   padding-top: 0px;
   padding-bottom: 0px;
   margin-bottom: 0px;
   color: inherit;
   background-color: #eee;
-  height: 500;
-  width: 100%;
+}
+/*---------------------------canvas------------------------------*/
+canvas {
+    padding: 0px;
+    margin:  0px;
+    /*margin : auto;*/
+    border-radius: 6px;
+}
+
+.canvas3js {
+  color: inherit;
+  /*background-color: rgba(187, 187, 187, 1);*/
+  margin : auto;
+  padding: 0px;
 }

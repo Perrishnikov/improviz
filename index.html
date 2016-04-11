@@ -19,7 +19,7 @@
     <link href="_css/ie10-viewport-bug-workaround.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="_css/page.css" rel="stylesheet">
+    <link href="_css/main.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -33,9 +33,9 @@
 
     <!-- Fixed navbar -->
     <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+        <div class="container" id="baseline">
             <ul class="nav navbar-nav navbar-left">
-                <li class="lead"><a href="#">ImproViz</a></li>
+                <li class="lead"><a href="#">Violet & Lily  </a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
@@ -58,22 +58,23 @@
 
 <!-- CREATE NEW BRANCH - jumbotron. 4:3 canvas (get width up), -->
     <div class="container canvas3js" id="canvasThree">
-        <div class="jumbotron">
-            <h1>Theme example</h1>
-            <p>This is a template showcasing the optional theme stylesheet included in Bootstrap. Use it as a starting point to create something more unique by building on or modifying it.</p>
-        </div>
+        <canvas id='canvas3'></canvas>
     </div>
-
+    <div class="jumbotron" id="baseline">
+    </div>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- <script src="_js/jquery-2.2.3.min"></script> -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="_js/jquery-2.2.3.min.js"><\/script>')</script>
+    <!-- <script>window.jQuery || document.write('<script src="_js/jquery-2.2.3.min.js"><\/script>')</script> -->
     <!-- <script src="_js/bootstrap.min.js"></script> -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" crossorigin="anonymous"></script>
     <!-- <script src="_js/docs.min.js"></script> -->
     <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <!-- <script src="_js/ie10-viewport-bug-workaround.js"></script> -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r74/three.min.js"></script>
+    <script src="_js/page.js"></script>
+    <script src="_js/script3.js"></script>
 </body>
 </html>
