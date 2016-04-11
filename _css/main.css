@@ -1,6 +1,6 @@
 body {
-    padding-top: 70px;
-    padding-bottom: 30px;
+    padding-top: 60px;
+    /*padding-bottom: 70px;*/
 }
 
 /*-----------------------------navbar--------------------------*/
@@ -11,11 +11,10 @@ body {
 .navbar-right {
     float: right!important;
 }
-.navbar-header-menu {
-    float: left;
-}
-/**/
 
+.navbar-nav > li > a {
+    line-height: 30px;
+}
 .lead {
     margin-bottom: 0px;
     margin-right: 10px;
@@ -27,6 +26,7 @@ body {
     .lead {
         margin-bottom: 0px;
         margin-right: 10px;
+        margin-left: 0px;
         font-size: 21px;
     }
 }
@@ -71,23 +71,31 @@ body {
 }
 /*---------------------------jumbotron---------------------------*/
 .jumbotron {
-  padding-top: 0px;
-  padding-bottom: 0px;
-  margin-bottom: 0px;
-  color: inherit;
-  background-color: #eee;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    color: inherit;
+    background-color: #eee;
 }
 /*---------------------------canvas------------------------------*/
-canvas {
+/* #canvasThree div, #canvas3 canvas*/
+
+#div3 {
+    color: inherit;
+    /*background-color: rgba(187, 187, 187, 1); use for testing*/
     padding: 0px;
-    margin:  0px;
-    /*margin : auto;*/
-    border-radius: 6px;
+    margin-right: auto;
+    margin-left: auto;
+    clear: both;
+    overflow: hidden;
 }
 
-.canvas3js {
-  color: inherit;
-  /*background-color: rgba(187, 187, 187, 1);*/
-  margin : auto;
-  padding: 0px;
+#canvas3{
+    padding: 0px;
+    margin:  0px;
+    margin : auto;
+    /*border-radius: 6px;*/
+}
+#black{
+/*empty container*/
 }

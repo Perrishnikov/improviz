@@ -26,7 +26,7 @@ function load3js(){
         renderer.setSize(WIDTH, HEIGHT, true);
         // console.log(renderer.getContextAttributes());
         console.dir(renderer.getContext().canvas);
-        console.log(document.body);
+        // console.log(document.body);
         // renderer.setSize(?);
     }
 
