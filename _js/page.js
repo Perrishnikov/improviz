@@ -1,28 +1,61 @@
 /* ---------- VARIABLES --------- */
-var WIDTH = $('#black').innerWidth(); // DONT USE TARGET DIV, use empty div container
+var WIDTH = $('#baseline').innerWidth(); // DONT USE TARGET DIV, use empty div container
 var HEIGHT = (WIDTH/4)*3; //Global so threejs can access
 
 /* ---------- READY ---------- */
 $(document).ready(function(){
-	// setInitialWidth();
-	getAspectRatio(); //DOM dashboard
+	getActiveButton();	//gets me active button & its id value (1.33)
+	sizeCanvas();	//resizes canvas to match desired aspect ratio
 	load3js();
 
-sizeCanvas();
-
+	//DOM dashboard
+	getAspectRatio();	//Renders actual (not desired) value to test against.
 });
 
 /* ---------- RESIZE ---------- */
 $(window).resize(function(){
 	sizeCanvas();
+	getAspectRatio();
+
 });
 
 /* ----------- FUNCTIONS --------- */
+
+function getActiveButton(){ //gets me active button & its id value (1.33)
+	var activeId = $("#toggleAspect .active").attr('id');
+}
+
+function getAspectRatio(aR) {	//Renders actual (not desired) value to test against.
+	$("#aspect span").text(function() {
+		var presentRatio = Math.round((WIDTH/HEIGHT)*100)/100;
+		console.log(WIDTH);
+		console.log(HEIGHT);
+		console.log(presentRatio);
+		console.log($(this).text());
+		$(this).text(presentRatio);
+	});
+}
+
+$(function() {	//button click event for 16:9 and 4:3 toggles "active"
+	$("#toggleAspect button").click(function() {
+		var aspectRatio = this.id;	//assign id value 1.77 or 1.33
+		$("button").removeClass("active"); 	  // remove "active" classes from all
+		$(this).addClass("active");		// add "active" class to the one we clicked
+
+		getActiveButton();
+		updateCanvasSize(aspectRatio);
+	});
+});
+
+function updateCanvasSize(aR) {
+	//
+}
+
 function sizeCanvas(){
  	/*Canvas Variables*/
 	// var presentRatio = Math.round(WIDTH/HEIGHT*100)/100;
 
-	var maxWidth = $('#black').innerWidth(); //width of // DONT USE TARGET DIV, use empty div container
+	var maxWidth = $('#baseline').innerWidth(); //width of // DONT USE TARGET DIV, use empty div container
 	var cssHeight = $("#div3").css("height"); //height from div3.css     starts at 0px
 	var cssHeightSliced =	cssHeight.slice(0, -2); //slicing 'px' off
 	var cssWidth = $("#div3").css("width"); //width from div3.css   //same as maxWidth, with px
@@ -70,34 +103,3 @@ function sizeCanvas(){
 		}
 	}
 }
-
-function getAspectRatio() {
-	$("#aspect span").text(function() {
-		var presentRatio = Math.round(WIDTH/HEIGHT*100)/100;
-		$(this).text(presentRatio);
-	});
-}
-
-var activeButton = $("#toggleAspect .active"); //gets me active button
-
-// toggle active buttons //
-$(function() {
-	$("#toggleAspect button").click(function() {
-
-		$("button").removeClass("active"); 	  // remove classes from all
-
-		$(this).addClass("active");		// add class to the one we clicked
-		activeButton = this;	//change activeButton to clicked
-		activeButtonText = $(this).text()
-
-		if (activeButtonText == "4:3") {
-			console.log("4:3");
-			// render 4:3
-		} else if (activeButtonText =="16:9") {
-			console.log("16:9");
-			// render 16:9
-		} else {
-			alert("not valid aspect ratio");
-		}
-	});
-});
