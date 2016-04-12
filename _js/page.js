@@ -4,9 +4,11 @@ var HEIGHT = (WIDTH/4)*3; //Global so threejs can access
 
 /* ---------- READY ---------- */
 $(document).ready(function(){
-	sizeCanvas();
+	// setInitialWidth();
+	getAspectRatio(); //DOM dashboard
 	load3js();
 
+sizeCanvas();
 
 });
 
@@ -18,8 +20,8 @@ $(window).resize(function(){
 /* ----------- FUNCTIONS --------- */
 function sizeCanvas(){
  	/*Canvas Variables*/
-	var presentRatio = Math.round(WIDTH/HEIGHT*100)/100;
-	
+	// var presentRatio = Math.round(WIDTH/HEIGHT*100)/100;
+
 	var maxWidth = $('#black').innerWidth(); //width of // DONT USE TARGET DIV, use empty div container
 	var cssHeight = $("#div3").css("height"); //height from div3.css     starts at 0px
 	var cssHeightSliced =	cssHeight.slice(0, -2); //slicing 'px' off
@@ -31,26 +33,10 @@ function sizeCanvas(){
 	var allPad = (canTop + canPad); //~82px
 	var breakHeight = windowY - allPad; //gives padding to new canvas height	//800-82
 
-	$("#resolution span").text(presentRatio);//add presentRation to DOM Menu
-
-	// select Resolution //
-	$(function() {
-	   $("#toggleResolution button").click(function() {
-		  // remove classes from all
-		  $("button").removeClass("active");
-		  // add class to the one we clicked
-		  $(this).addClass("active");
-
-		  if(this.innerHTML == "16:9"){
-			  sixteenNine();
-		  } else if (this.innerHTML == "4:3") {
-			  fourThree();
-		  } else {
-			  alert("error");		  }
-	   });
-	});
+	// $("#resolution span").text(presentRatio);//add presentRation to DOM Menu
 
 	fourThree();
+	getAspectRatio();
 
 	/*4:3 Variables, 1.33*/ //http://andrew.hedges.name/experiments/aspect_ratio/
 	function fourThree() {
@@ -78,9 +64,40 @@ function sizeCanvas(){
 				HEIGHT = breakHeight;
 				WIDTH = minHeight;
 		} else {
-			$("#div3").css({"width": "100%", "height": maxHeight});
+			$("#div3").css({"width": maxWidth, "height": maxHeight});
 		    	HEIGHT = maxHeight;
 				WIDTH = cssWidthSliced;
 		}
 	}
 }
+
+function getAspectRatio() {
+	$("#aspect span").text(function() {
+		var presentRatio = Math.round(WIDTH/HEIGHT*100)/100;
+		$(this).text(presentRatio);
+	});
+}
+
+var activeButton = $("#toggleAspect .active"); //gets me active button
+
+// toggle active buttons //
+$(function() {
+	$("#toggleAspect button").click(function() {
+
+		$("button").removeClass("active"); 	  // remove classes from all
+
+		$(this).addClass("active");		// add class to the one we clicked
+		activeButton = this;	//change activeButton to clicked
+		activeButtonText = $(this).text()
+
+		if (activeButtonText == "4:3") {
+			console.log("4:3");
+			// render 4:3
+		} else if (activeButtonText =="16:9") {
+			console.log("16:9");
+			// render 16:9
+		} else {
+			alert("not valid aspect ratio");
+		}
+	});
+});
