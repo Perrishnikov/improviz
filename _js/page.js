@@ -16,49 +16,29 @@ $(window).resize(function(){
 	updateDashboard();	//DOM dashboard
 });
 
-/* ----------- FUNCTIONS --------- */
-
-// ========================== dashboard ========================= //
+// ========================== dashboard ============================ //
 function updateDashboard(){		//sends info to menu panel
 
 	// console.log(div3Width + " " + div3Height);
-
-	(function displayWindowWidth() {		//displays widows width
+	$(function displayWindowWidth() {		//displays widows width
 		$("#windowWidth span").text(function() {
 			var windowWidth = $(window).width();
 			$(this).text(windowWidth);
 		});
-	})();
-
-	(function displayWindowHeight() {		//displays widows height
+	});
+	$(function displayWindowHeight() {		//displays widows height
 		$("#windowHeight span").text(function() {
 			var windowHeight = $(window).height();
 			$(this).text(windowHeight);
 		});
-	})();
-
-	(function displayBaselineWidth() {		//displays baseline's height
+	});
+	$(function displayBaselineWidth() {		//displays baseline's width
 		$("#baselineWidth span").text(function() {
 			var baselineWidth = $("#baseline").width(); 	//use width, not innerWidth
 			$(this).text(baselineWidth);
 		});
-	})();
-
-	(function displaydiv3Width() {		//displays div3's width
-		$("#div3Width span").text(function() {
-			div3Width = $("#div3").width(); 	//use width, not innerWidth
-			$(this).text(div3Width);
-		});
-	})();
-
-	(function displaydiv3Height() {		//displays div3's width
-		$("#div3Height span").text(function() {
-			div3Height = $("#div3").height();
-			$(this).text(div3Height);
-		});
-	})();
-
-	(function displaydiv3Props() {		//displays div3's width and height. Call displayAspectRatio
+	});
+	$(function displaydiv3Props() {		//displays div3's width and height. Call displayAspectRatio
 		var div3Width, div3Height;
 		$("#div3Height span").text(function() {
 			div3Height = $("#div3").height();
@@ -69,8 +49,7 @@ function updateDashboard(){		//sends info to menu panel
 			$(this).text(div3Width);
 		});
 		displayAspectRatio(div3Width, div3Height);	//calls displayAspectRatio below
-	})();
-
+	});
 	function displayAspectRatio(W,H) {		//displays actual (not desired) value to test against.
 		$("#aspect span").text(function() {
 			var currentRatio = Math.round((W/H)*100)/100;
@@ -80,13 +59,15 @@ function updateDashboard(){		//sends info to menu panel
 }
 // ===================== end dashboard ============================ //
 
+/* ------------------------- FUNCTIONS ---------------------------- */
 function getActiveButton(){ //gets me active button & its id value (1.33)
 	var activeId = $("#toggleAspect .active").attr('id');
 }
 
-(function toggleAspect() {	//button click event for 16:9 and 4:3 toggles "active"
+$(function toggleAspect() {	//button click event for 16:9 and 4:3 toggles "active"
 	$("#toggleAspect button").click(function() {
 		var aspectRatio = this.id;	//assign id value 1.77 or 1.33
+		console.log(aspectRatio);
 		$("button").removeClass("active"); 	  // remove "active" classes from all
 		$(this).addClass("active");		// add "active" class to the one we clicked
 
