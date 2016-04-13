@@ -4,8 +4,7 @@ var HEIGHT = (WIDTH/4)*3; //Global so threejs can access
 
 /* ---------- READY ---------- */
 $(document).ready(function(){
-	getActiveButton();	//gets me active button & its id value (1.33)
-	sizeCanvas();	//resizes canvas to match desired aspect ratio
+	selectAspect();		//sets initial ratio from "active" button
 	updateDashboard();	//DOM dashboard
 	load3js();
 });
@@ -57,32 +56,28 @@ function updateDashboard(){		//sends info to menu panel
 		});
 	}
 }
-// ===================== end dashboard ============================ //
+// ====================== end dashboard ============================ //
 
 /* ------------------------- FUNCTIONS ---------------------------- */
-function getActiveButton(){ //gets me active button & its id value (1.33)
-	var activeId = $("#toggleAspect .active").attr('id');
-}
 
-$(function toggleAspect() {	//button click event for 16:9 and 4:3 toggles "active"
-	$("#toggleAspect button").click(function() {
-		var aspectRatio = this.id;	//assign id value 1.77 or 1.33
+function selectAspect() {	//button click event for 16:9 and 4:3 toggles "active"
+	var aspectRatio = $("#toggleAspect .active").attr('id');	//set inital aspect ratio on ready
+	console.log(aspectRatio);
+	$("#toggleAspect button").click(function() {	//on button click, update the ACTIVE status and value
+		aspectRatio = this.id;	//assign id value 1.77 or 1.33
 		console.log(aspectRatio);
-		$("button").removeClass("active"); 	  // remove "active" classes from all
+		$("#toggleAspect button").removeClass("active"); 	  // remove "active" classes from all
 		$(this).addClass("active");		// add "active" class to the one we clicked
 
-		getActiveButton();
-		updateCanvasSize(aspectRatio);
+		sizeCanvas(aspectRatio);	//sets new ratio on button click
 	});
-});
+	sizeCanvas(aspectRatio);	//only sets inital ratio
+};
 
-function updateCanvasSize(aR) {
-	//
-}
-
-function sizeCanvas(){
- 	/*Canvas Variables*/
+function sizeCanvas(aR){
 	// var presentRatio = Math.round(WIDTH/HEIGHT*100)/100;
+	console.log(aR);
+
 
 	var maxWidth = $('#baseline').innerWidth(); //width of // DONT USE TARGET DIV, use empty div container
 	var cssHeight = $("#div3").css("height"); //height from div3.css     starts at 0px
