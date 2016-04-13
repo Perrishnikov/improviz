@@ -6,37 +6,85 @@ var HEIGHT = (WIDTH/4)*3; //Global so threejs can access
 $(document).ready(function(){
 	getActiveButton();	//gets me active button & its id value (1.33)
 	sizeCanvas();	//resizes canvas to match desired aspect ratio
+	updateDashboard();	//DOM dashboard
 	load3js();
-
-	//DOM dashboard
-	getAspectRatio();	//Renders actual (not desired) value to test against.
 });
 
 /* ---------- RESIZE ---------- */
 $(window).resize(function(){
 	sizeCanvas();
-	getAspectRatio();
-
+	updateDashboard();	//DOM dashboard
 });
 
 /* ----------- FUNCTIONS --------- */
+
+// ========================== dashboard ========================= //
+function updateDashboard(){		//sends info to menu panel
+
+	// console.log(div3Width + " " + div3Height);
+
+	(function displayWindowWidth() {		//displays widows width
+		$("#windowWidth span").text(function() {
+			var windowWidth = $(window).width();
+			$(this).text(windowWidth);
+		});
+	})();
+
+	(function displayWindowHeight() {		//displays widows height
+		$("#windowHeight span").text(function() {
+			var windowHeight = $(window).height();
+			$(this).text(windowHeight);
+		});
+	})();
+
+	(function displayBaselineWidth() {		//displays baseline's height
+		$("#baselineWidth span").text(function() {
+			var baselineWidth = $("#baseline").width(); 	//use width, not innerWidth
+			$(this).text(baselineWidth);
+		});
+	})();
+
+	(function displaydiv3Width() {		//displays div3's width
+		$("#div3Width span").text(function() {
+			div3Width = $("#div3").width(); 	//use width, not innerWidth
+			$(this).text(div3Width);
+		});
+	})();
+
+	(function displaydiv3Height() {		//displays div3's width
+		$("#div3Height span").text(function() {
+			div3Height = $("#div3").height();
+			$(this).text(div3Height);
+		});
+	})();
+
+	(function displaydiv3Props() {		//displays div3's width and height. Call displayAspectRatio
+		var div3Width, div3Height;
+		$("#div3Height span").text(function() {
+			div3Height = $("#div3").height();
+			$(this).text(div3Height);
+		});
+		$("#div3Width span").text(function() {
+			div3Width = $("#div3").width();
+			$(this).text(div3Width);
+		});
+		displayAspectRatio(div3Width, div3Height);	//calls displayAspectRatio below
+	})();
+
+	function displayAspectRatio(W,H) {		//displays actual (not desired) value to test against.
+		$("#aspect span").text(function() {
+			var currentRatio = Math.round((W/H)*100)/100;
+			$(this).text(currentRatio);
+		});
+	}
+}
+// ===================== end dashboard ============================ //
 
 function getActiveButton(){ //gets me active button & its id value (1.33)
 	var activeId = $("#toggleAspect .active").attr('id');
 }
 
-function getAspectRatio(aR) {	//Renders actual (not desired) value to test against.
-	$("#aspect span").text(function() {
-		var presentRatio = Math.round((WIDTH/HEIGHT)*100)/100;
-		console.log(WIDTH);
-		console.log(HEIGHT);
-		console.log(presentRatio);
-		console.log($(this).text());
-		$(this).text(presentRatio);
-	});
-}
-
-$(function() {	//button click event for 16:9 and 4:3 toggles "active"
+(function toggleAspect() {	//button click event for 16:9 and 4:3 toggles "active"
 	$("#toggleAspect button").click(function() {
 		var aspectRatio = this.id;	//assign id value 1.77 or 1.33
 		$("button").removeClass("active"); 	  // remove "active" classes from all
@@ -69,7 +117,7 @@ function sizeCanvas(){
 	// $("#resolution span").text(presentRatio);//add presentRation to DOM Menu
 
 	fourThree();
-	getAspectRatio();
+	// displayAspectRatio();
 
 	/*4:3 Variables, 1.33*/ //http://andrew.hedges.name/experiments/aspect_ratio/
 	function fourThree() {
