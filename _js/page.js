@@ -1,16 +1,12 @@
 // NO SCROLL  ON MOBILE
 
 /* ---------- VARIABLES --------- */
-var WIDTH = $('#baseline').innerWidth(); // DONT USE TARGET DIV, use empty div container
-var HEIGHT;// Global so threejs can access
-// console.log(HEIGHT);
-// console.log(WIDTH);
+var WIDTH, HEIGHT;// Global so threejs can access
 
 /* ---------- READY ---------- */
 $(document).ready(function(){
-	selectAspect();		//sets initial ratio from "active" button
-	updateDashboard();	//DOM dashboard
-	load3js();
+	selectAspect();		//sets initial aspect ratio from "active" button
+	load3js();		//script3.js
 });
 
 /* ---------- RESIZE ---------- */
@@ -66,18 +62,17 @@ function updateDashboard(){		//sends info to menu panel
 
 function selectAspect() {	//button click event for 16:9 and 4:3 toggles "active"
 	var aspectRatio = $("#toggleAspect .active").attr('id');	//set inital aspect ratio on ready
-	// console.log(aspectRatio);
+
 	$("#toggleAspect button").click(function() {	//on button click, update the ACTIVE status and value
-		aspectRatio = this.id;	//assign id value 1.77 or 1.33
-		// console.log(aspectRatio);
+		aspectRatio = this.id;	//assign id value 1.77, 1.33, or "full"
 		$("#toggleAspect button").removeClass("active"); 	  // remove "active" classes from all
 		$(this).addClass("active");		// add "active" class to the one we clicked
-
-		console.log("Onclick: " + Number(aspectRatio));
-		resizeCanvas(Number(aspectRatio));	//sets new ratio on button click //convert to number from string
+		// console.log("Onclick: " + Number(aspectRatio));
+		resizeCanvas(aspectRatio);	//sets new ratio on button click //convert to number from string
 	});
-	resizeCanvas(Number(aspectRatio));	//only sets inital ratio //4.3 //convert to number from string
-	// console.log("Initial: " + aspectRatio);
+
+	resizeCanvas(aspectRatio);	//only sets inital ratio //4.3 //convert to number from string
+	console.log("Initial: " + aspectRatio);
 };
 
 var dataStore = {
@@ -90,45 +85,46 @@ var dataStore = {
 }
 
 function resizeCanvas(aR){
-console.log(aR);
+	// console.log(aR);
+	updateDashboard();
+
 	if ($.isNumeric(aR)){
 		dataStore.lastNumber = aR;
 		dataStore.activeAspect = aR;
 		dataStore.formula(aR);
-
-	} else if (aR == "resize"){
+		numericalAspect();
+	} else if (aR == "resize" && dataStore.activeAspect != "fullsize"){
 		dataStore.activeAspect = dataStore.lastNumber;
-
-	} else if (aR == "full"){
-		// full size
+		numericalAspect();
+	} else if (aR == "full" || dataStore.activeAspect == "fullsize"){
+		dataStore.activeAspect = "fullsize";
+		fullsizeAspect();
 	} else {
 		console.log("Aspet Ratio is not valid");
 	}
 
-	var maxWidth = $('#baseline').width();
-	var minHeight = ($(window).height()) - 60; //300 breakHeight //if maxheight is too small, break maxWidth to minWidth
-	var maxHeight = Math.round(maxWidth * dataStore.otherAspect);
-	var minWidth = Math.round(minHeight * dataStore.activeAspect);
+	function numericalAspect(){ //set aspect ratio to preset value
+		var maxWidth = $('#baseline').width();
+		var minHeight = ($(window).height()) - 60; //300 breakHeight //if maxheight is too small, break maxWidth to minWidth
+		var maxHeight = Math.round(maxWidth * dataStore.otherAspect);
+		var minWidth = Math.round(minHeight * dataStore.activeAspect);
 
-	// console.log(otherAspect);
-	// console.log((1/dataStore.activeAspect).toFixed(2));
-	console.log("minWidth" + minWidth);
-	console.log("maxWidth" + maxWidth);
-	// console.log("maxHeight" + maxHeight);
-
-	if (minHeight < maxHeight) {	//primary resizing work
-		$("#div3").css({"height": minHeight, "width": minWidth});
-			HEIGHT = minHeight;
-			WIDTH = minWidth;
-			console.log("HEIGHT" + HEIGHT);
-			//send these values to threejs and remove global variables ====================
+		if (minHeight < maxHeight) {	//primary resizing work
+			$("#div3").css({"height": minHeight, "width": minWidth});
+				HEIGHT = minHeight;
+				WIDTH = minWidth;
+				// console.log("if HEIGHT " + HEIGHT + "-WIDTH " + WIDTH);
+		}
+		else {	//kicks in on small size y movements
+			$("#div3").css({"height": maxHeight, "width": maxWidth});
+				HEIGHT = maxHeight;
+				WIDTH = maxWidth;
+				// console.log("else HEIGHT " + HEIGHT + "-WIDTH " + WIDTH);
+		}
 	}
-	else {	//kicks in on small size y movements
-		$("#div3").css({"height": maxHeight, "width": maxWidth});
-			HEIGHT = maxHeight;
-			WIDTH = maxWidth;
-			// console.log("else");
-
+	function fullsizeAspect() {	//set aspect ratio to window size
+		HEIGHT = $(window).height() - 60;
+		WIDTH = $(window).width();
+		$("#div3").css({"height": HEIGHT, "width": WIDTH});
 	}
-
 }

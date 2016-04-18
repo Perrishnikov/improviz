@@ -50,12 +50,16 @@ function load3js(){
     init();
     render();
 
+    // == Link to page.js
     $(window).resize(function() {
-        // SCREEN_WIDTH = window.innerWidth;
-        // SCREEN_HEIGHT = window.innerHeight;
         camera.aspect = WIDTH / HEIGHT;
         camera.updateProjectionMatrix();
         renderer.setSize( WIDTH, HEIGHT );
-        // console.log("resize: " + WIDTH);
+    });
+
+    $("#toggleAspect button").click(function() {	//on button click, update the ACTIVE status and value
+        camera.aspect = WIDTH / HEIGHT;
+        camera.updateProjectionMatrix();
+        renderer.setSize( WIDTH, HEIGHT );
     });
 };
