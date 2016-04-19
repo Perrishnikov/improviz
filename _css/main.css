@@ -1,9 +1,9 @@
 body {
-    padding-top: 70px;
-    padding-bottom: 30px;
+    padding-top: 60px;
+    /*padding-bottom: 70px;*/
 }
 
-/*-----------navbar-----------*/
+/*-----------------------------navbar--------------------------*/
 /*prevents items from stacking on collapse*/
 .navbar-nav>li, .navbar-nav {
     float: left!important;
@@ -11,15 +11,20 @@ body {
 .navbar-right {
     float: right!important;
 }
-.navbar-header-menu {
-    float: left;
-}
-/**/
 
+.navbar-nav > li > a {
+    line-height: 30px;
+}
 .lead {
     margin-bottom: 0px;
     margin-right: 10px;
     font-size: 21px;
+}
+.navbar-fixed-top {
+    border-width: 0px;
+}
+.dropdown-menu  {
+    top: 59px;
 }
 
 /*greater than 768 */
@@ -27,6 +32,7 @@ body {
     .lead {
         margin-bottom: 0px;
         margin-right: 10px;
+        margin-left: 0px;
         font-size: 21px;
     }
 }
@@ -48,7 +54,8 @@ body {
 
     .dropdown-menu  {
         position: absolute!important;
-        top: 48px;
+        /*top: 48px;*/
+        top: 57px;
         border-radius: 4px;
         background-color: #fff!important;
         border: 1px solid rgba(0, 0, 0, .15);
@@ -68,14 +75,43 @@ body {
         background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%)!important;
         background-repeat: repeat-x;
     }
+    #div3{
+        margin-top: 5px; /*drops div 3 down to match navbar size increase*/
+    }
 }
-/*------------jumbotron-----------*/
+/*---------------------------jumbotron---------------------------*/
 .jumbotron {
-  padding-top: 0px;
-  padding-bottom: 0px;
-  margin-bottom: 0px;
-  color: inherit;
-  background-color: #eee;
-  height: 500;
-  width: 100%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    color: inherit;
+    background-color: #eee;
+}
+/*---------------------------canvas------------------------------*/
+/* #canvasThree div, #canvas3 canvas*/
+
+#div3 {
+    color: inherit;
+    /*background-color: rgba(187, 187, 187, 1); use for testing*/
+    padding: 0px;
+    margin-right: auto;
+    margin-left: auto;
+    clear: both;
+    overflow: hidden;
+    overflow: auto;
+    z-index: 000;
+}
+
+#canvas3{
+    padding: 0px;
+    margin:  0px;
+    overflow: hidden;
+    overflow: auto;
+    /*margin-right: auto;
+    margin-left: auto;*/
+
+    /*border-radius: 6px;*/
+}
+#black{
+/*empty container*/
 }
