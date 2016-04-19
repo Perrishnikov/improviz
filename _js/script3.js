@@ -1,4 +1,5 @@
 var scene, camera, renderer;
+var WIDTH, HEIGHT;// Global so threejs can access
 
 function load3js(){
 
