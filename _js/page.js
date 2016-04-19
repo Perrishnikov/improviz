@@ -5,6 +5,7 @@ var WIDTH, HEIGHT;// Global so threejs can access
 
 /* ---------- READY ---------- */
 $(document).ready(function(){
+	revealMenu();
 	selectAspect();		//sets initial aspect ratio from "active" button
 	load3js();		//script3.js
 });
@@ -72,9 +73,20 @@ function selectAspect() {	//button click event for 16:9 and 4:3 toggles "active"
 	});
 
 	resizeCanvas(aspectRatio);	//only sets inital ratio //4.3 //convert to number from string
-	console.log("Initial: " + aspectRatio);
+	// console.log("Initial: " + aspectRatio);
 };
 
+function revealMenu() {	//reveal Menu button (starts hidden in html)
+
+	$(window).keydown(function(event) {
+		if ( event.which == 77 ) {
+			$("#menu").toggle()
+			event.preventDefault();
+		}
+	});
+}
+
+/* ------- Data Store ----------- */
 var dataStore = {
 	lastNumber: "null",
 	activeAspect: "null",
@@ -84,11 +96,12 @@ var dataStore = {
 		// console.log(dataStore.lastNumber);}
 }
 
-function resizeCanvas(aR){
+/* --------Resize Cavas ------------ */
+function resizeCanvas(aR){ //resizes the canvas on initialize and click
 	// console.log(aR);
 	updateDashboard();
 
-	if ($.isNumeric(aR)){
+	if ($.isNumeric(aR)){	//if parameter is a number, do this (1.77 and 1.33)
 		dataStore.lastNumber = aR;
 		dataStore.activeAspect = aR;
 		dataStore.formula(aR);
@@ -105,7 +118,7 @@ function resizeCanvas(aR){
 
 	function numericalAspect(){ //set aspect ratio to preset value
 		var maxWidth = $('#baseline').width();
-		var minHeight = ($(window).height()) - 60; //300 breakHeight //if maxheight is too small, break maxWidth to minWidth
+		var minHeight = ($(window).height()) - 60; //margin from top for navbar
 		var maxHeight = Math.round(maxWidth * dataStore.otherAspect);
 		var minWidth = Math.round(minHeight * dataStore.activeAspect);
 
