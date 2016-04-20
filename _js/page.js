@@ -3,8 +3,29 @@
 
 /* ---------- READY ---------- */
 $(document).ready(function(){
+	$('.grid').masonry({
+	  itemSelector: '.grid-item', // use a separate class for itemSelector, other than .col-
+	  columnWidth: '.grid-sizer',
+	  percentPosition: true
+	});
+
+	$('.grid').on('click', function(e){
+		console.log(e);
+		console.dir(e);
+	});
+
+	(function revealMenu() {	//reveal Menu button (starts hidden in html)
+
+		$(window).keydown(function(event) {
+			if ( event.which == 77 ) {
+				$("#menu").toggle()
+				event.preventDefault();
+			}
+		});
+	}());
 
 });
+
 
 /* ---------- RESIZE ---------- */
 $(window).resize(function(){
@@ -21,14 +42,4 @@ function revealMenu() {	//reveal Menu button (starts hidden in html)
 			event.preventDefault();
 		}
 	});
-}
-
-/* ------- Data Store ----------- */
-var dataStore = {
-	lastNumber: "null",
-	activeAspect: "null",
-	otherAspect: "null",
-	formula: function(x){
-		dataStore.otherAspect = (1/x).toFixed(2)}
-		// console.log(dataStore.lastNumber);}
 }

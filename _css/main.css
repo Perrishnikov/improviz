@@ -75,6 +75,7 @@ body {
         background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%)!important;
         background-repeat: repeat-x;
     }
+
     #div3{
         margin-top: 5px; /*drops div 3 down to match navbar size increase*/
     }
@@ -112,6 +113,25 @@ body {
 
     /*border-radius: 6px;*/
 }
-#black{
-/*empty container*/
-}
+
+/*.grid-item {*/
+    /*float: left;*/
+      /*width: 80px;*/
+      /*height: 60px;*/
+      /*padding: 0px;
+      border: 2px solid hsla(0, 0%, 0%, 0.5);
+}*/
+
+.grid-item--width2 { width: 160px; }*/
+.grid-item--height2 { height: 140px; }
+/*
+.static-banner {
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  padding: 10px 30px;
+  color: white;
+  background: #A2C;
+  font-size: 22px;
+  z-index: 2; above items
+}*/
