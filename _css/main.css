@@ -1,6 +1,5 @@
 body {
     padding-top: 60px;
-    /*padding-bottom: 70px;*/
 }
 
 /*-----------------------------navbar--------------------------*/
@@ -121,12 +120,37 @@ body {
 
     }
 
-.Collage img{
-
+.Collage img a{
+    padding: 0px;
+    margin:  0px;
     /* ensures padding at the bottom of the image is correct */
-    /*vertical-align:bottom;*/
-
+    vertical-align:bottom;
+    margin: auto;
     /* hide the images until the plugin has run. the plugin will reveal the images*/
     opacity:0;
 
-    }
+}
+
+/*#baseline {
+    padding: 0px;
+    margin:  0px;
+}*/
+
+#popup {
+    position: absolute;;
+    background-color: rgba(0, 0, 0, .5);
+    z-index: 100;
+    max-width: inherit;
+    overflow: hidden;
+    /*overflow: auto;*/
+}
+
+#popup img{
+
+    /*background-image: _images/bling-tooth.jpg;*/
+    /*display: block;*/
+    /*border: 15px solid #FCF4DC;*/
+    -webkit-box-shadow: 5px 5px 12px black;
+    -moz-box-shadow: 5px 5px 12px black;
+    box-shadow: 5px 5px 12px black;
+}
