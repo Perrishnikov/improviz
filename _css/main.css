@@ -6,6 +6,7 @@ body {
 /*prevents items from stacking on collapse*/
 .navbar-nav>li, .navbar-nav {
     float: left!important;
+    z-index: 100;
 }
 .navbar-right {
     float: right!important;
@@ -33,6 +34,9 @@ body {
         margin-right: 10px;
         margin-left: 0px;
         font-size: 21px;
+    }
+    #popup {
+      width: 750px;
     }
 }
 
@@ -137,20 +141,26 @@ body {
 }*/
 
 #popup {
-    position: absolute;;
+    position: absolute;
     background-color: rgba(0, 0, 0, .5);
-    z-index: 100;
-    max-width: inherit;
-    overflow: hidden;
-    /*overflow: auto;*/
+    z-index: 200;
+    margin-top: 0px;
+    /*overflow: hidden;*/
+    overflow: auto;
+    /*margin-left: -15px;*/
+    /*padding-right: -5px;*/
+    /*padding-left: 15px;*/
+    /*margin-right: auto;*/
+    margin-left: auto;
 }
 
 #popup img{
-
+    position: initial;
+    overflow: auto;
     /*background-image: _images/bling-tooth.jpg;*/
     /*display: block;*/
     /*border: 15px solid #FCF4DC;*/
-    -webkit-box-shadow: 5px 5px 12px black;
+    /*-webkit-box-shadow: 5px 5px 12px black;
     -moz-box-shadow: 5px 5px 12px black;
-    box-shadow: 5px 5px 12px black;
+    box-shadow: 5px 5px 12px black;*/
 }

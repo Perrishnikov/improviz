@@ -9,7 +9,7 @@ $(document).ready(function(){
              * The ideal height you want your row to be. It won't set it exactly to this as
              * plugin adjusts the row height to get the correct width
              */
-            'targetHeight'    : 400,
+            'targetHeight'    : 300,
 
             /*
              * how quickly you want images to fade in once ready can be in ms, "slow" or "fast"
@@ -44,7 +44,7 @@ $(document).ready(function(){
 /* ---------- RESIZE ---------- */
 $(window).resize(function(){
 	$('.Collage').collagePlus( {
-			'targetHeight'    : 400,
+			'targetHeight'    : 300,
 			'fadeSpeed'       : "slow",
 			'effect'          : 'effect-6',
 			'direction'       : 'horizontal',
@@ -67,17 +67,55 @@ $(window).resize(function(){
 
 $(window).click(function(e) {
 
+// console.dir("screenY: " + e.screenY);
+// console.dir(e);
+var screenY = e.screenY;
+console.log(screenY);
+
 	if (e.target.tagName === 'IMG' && isPopup === false) {
 
 		var imageSrc = e.target.src;
-		var height = e.target.naturalHeight; //496W * 360H,
-		var width = e.target.naturalWidth;
+		var height, width;
 
-		var newDiv = $('<div/>', { id:'popup'});
-		$('#baseline').prepend(newDiv);
+		(function calcDimensions() {
+			var naturalHeight = e.target.naturalHeight; //496W * 360H,
+			var naturalWidth = e.target.naturalWidth;
+			var bigAspect = Math.round((naturalWidth/naturalHeight)*100)/100;
+			var smallAspect = (1/bigAspect).toFixed(2);
+			var winWidth = $('#baseline').width();
+			var winHeight = ($(window).height()) - 60;
 
-		var popImage = $('<img src= "' + imageSrc + '" style="width: ' + width + 'px; height: ' + height + 'px">');
-		$('#popup').append(popImage);
+			console.log("natural height: " + naturalHeight + " natural width: " + naturalWidth);
+			// console.log("big aspect: " + bigAspect + " smallAspect: " + smallAspect);
+			console.log("winWidth: " + winWidth + " winHeight: " + winHeight);
+			console.log("bigAspect: " + bigAspect + "smallAspect: " + smallAspect);
+
+			if (naturalWidth > winWidth){
+				width = winWidth;
+				height = Math.round(width * smallAspect);
+				console.log("too wide");
+
+			} else if (naturalHeight > winHeight){
+				height = naturalHeight;
+				width = Math.round(height * bigAspect); //or naturalWidth
+				console.log("too tall");
+
+			} else {
+				width = naturalWidth;
+				height = naturalHeight
+				console.log("just right");
+			}
+
+			// var newDiv = $('<div/>', { id:'popup'});
+			var newDiv = $('<div id="popup" style="width: ' + width + 'px; height: ' + height + 'px"></div>');
+
+			// $('body').prepend(newDiv);
+			$('#baseline').append(newDiv);
+
+			var popImage = $('<img src= "' + imageSrc + '" style="width: ' + width + 'px; height: ' + height + 'px">');
+			$('#popup').append(popImage);
+
+		}());
 
 		isPopup = true;
 
@@ -85,11 +123,4 @@ $(window).click(function(e) {
 		$('#popup').remove();
 		isPopup = false;
 	}
-}); // click event
-
-
-// e.target.click(function()) {
-// 	var myNode = d.target.parentNode.querySelector('div.preview');
-// 	myNode.parentNode.removeChild(myNode);
-// 	e.target.removeEventListener('mouseout', handler, false);
-// }, false);
+});
