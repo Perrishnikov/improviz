@@ -142,7 +142,7 @@ body {
 
 #popup {
     position: absolute;
-    background-color: rgba(0, 0, 0, .5);
+    background-color: rgba(0, 0, 0, .75);
     z-index: 200;
     margin-top: 0px;
     /*overflow: hidden;*/
@@ -155,8 +155,11 @@ body {
 }
 
 #popup img{
-    position: initial;
-    overflow: auto;
+    /*position: initial;*/
+    /*overflow: auto;*/
+    margin-left: auto;
+    border-radius: 4px;
+
     /*background-image: _images/bling-tooth.jpg;*/
     /*display: block;*/
     /*border: 15px solid #FCF4DC;*/

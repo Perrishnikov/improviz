@@ -51,12 +51,17 @@ $(window).resize(function(){
 			'allowPartialLastRow'       : true
 		}
 	);
+
+	if (isPopup) {
+		object.sizeDiv();
+		object.sizeImage();
+	}
 });
+
 
 /* ------------------------- FUNCTIONS ---------------------------- */
 
 (function revealMenu() {	//reveal Menu button (starts hidden in html)
-
 	$(window).keydown(function(event) {
 		if ( event.which == 77 ) {
 			$("#menu").toggle()
@@ -65,62 +70,99 @@ $(window).resize(function(){
 	});
 }());
 
+var object = { //object to hold DIV and image
+	naturalHeight: "null",
+	naturalWidth: "null",
+	bigAspect: "null",
+	smallAspect: "null",
+	winWidth: "null",
+	winHeight: "null",
+	imageSrc: "null",
+
+	setDimensions: function (w,h,s) { //initial click setup for variables, DIV, and image
+		object.naturalHeight = h; //496W * 360H,
+		object.naturalWidth = w;
+		object.imageSrc = s;
+		object.bigAspect = Math.round((w/h)*100)/100;
+		object.smallAspect = (1/object.bigAspect).toFixed(2);
+
+		(function(){ //create DIV and image and append them to DOM
+			var newDiv = $('<div id="popup"></div>');
+			$('body').prepend(newDiv);
+			object.sizeDiv();
+
+			var popImage = $('<img src= "' + s + '">');
+			$('#popup').append(popImage);
+			object.sizeImage();
+		})();
+
+		// console.log("natural height: " + naturalHeight + " natural width: " + naturalWidth);
+		// console.log("big aspect: " + bigAspect + " smallAspect: " + smallAspect);
+		// console.log("winWidth: " + winWidth + " winHeight: " + winHeight);
+		// console.log("bigAspect: " + bigAspect + "smallAspect: " + smallAspect);
+	},
+
+	sizeDiv: function(){ //size DIV
+		var w = $(window).outerWidth();
+		var h = $('body').height();
+		$('#popup').css({width: w, height: h });
+	},
+
+	sizeImage: function () { //size the image
+		var winWidth = $(window).width();
+		var winHeight = ($(window).height()) - 60;
+		var height = "null";
+		var width = "null";
+
+		if (object.naturalWidth >= winWidth){	//if image is wider than window, use image width
+			width = winWidth;
+			height = Math.round(width * object.smallAspect);
+			updateImage();
+			// console.log("too wide");
+
+		} else if (object.naturalHeight > winHeight){ //if image is taller than window, dont worry about it
+			height = object.naturalHeight;
+			width = Math.round(height * object.bigAspect); //or naturalWidth
+			updateImage();
+			// console.log("too tall");
+
+		} else if (winWidth <= object.naturalWidth){ //if window is narrower than image, use window width
+			width = winWidth;
+			height = Math.round(width * object.smallAspect);
+			updateImage();
+			// console.log("too skinny");
+		}
+		else { //if the image fits, dont worry about it
+			width = object.naturalWidth;
+			height = object.naturalHeight;
+			updateImage();
+			// console.log("just right");
+		}
+
+		function updateImage(){
+			var screenCenter = $(window).width()/2;	//find middle of screen
+			var imageCenter = width/2; //find middle of image
+			var formula = screenCenter - imageCenter; //location to place image in screen center
+			$('#popup img').css({width: width, height: height, marginLeft: formula });
+		}
+	}
+}
+
 $(window).click(function(e) {
 
-// console.dir("screenY: " + e.screenY);
-// console.dir(e);
-var screenY = e.screenY;
-console.log(screenY);
-
 	if (e.target.tagName === 'IMG' && isPopup === false) {
-
-		var imageSrc = e.target.src;
-		var height, width;
-
-		(function calcDimensions() {
-			var naturalHeight = e.target.naturalHeight; //496W * 360H,
-			var naturalWidth = e.target.naturalWidth;
-			var bigAspect = Math.round((naturalWidth/naturalHeight)*100)/100;
-			var smallAspect = (1/bigAspect).toFixed(2);
-			var winWidth = $('#baseline').width();
-			var winHeight = ($(window).height()) - 60;
-
-			console.log("natural height: " + naturalHeight + " natural width: " + naturalWidth);
-			// console.log("big aspect: " + bigAspect + " smallAspect: " + smallAspect);
-			console.log("winWidth: " + winWidth + " winHeight: " + winHeight);
-			console.log("bigAspect: " + bigAspect + "smallAspect: " + smallAspect);
-
-			if (naturalWidth > winWidth){
-				width = winWidth;
-				height = Math.round(width * smallAspect);
-				console.log("too wide");
-
-			} else if (naturalHeight > winHeight){
-				height = naturalHeight;
-				width = Math.round(height * bigAspect); //or naturalWidth
-				console.log("too tall");
-
-			} else {
-				width = naturalWidth;
-				height = naturalHeight
-				console.log("just right");
-			}
-
-			// var newDiv = $('<div/>', { id:'popup'});
-			var newDiv = $('<div id="popup" style="width: ' + width + 'px; height: ' + height + 'px"></div>');
-
-			// $('body').prepend(newDiv);
-			$('#baseline').append(newDiv);
-
-			var popImage = $('<img src= "' + imageSrc + '" style="width: ' + width + 'px; height: ' + height + 'px">');
-			$('#popup').append(popImage);
-
-		}());
-
+		var w = e.target.naturalWidth;
+		var h = e.target.naturalHeight; //496W * 360H,
+		var s = e.target.src;
 		isPopup = true;
 
+		object.setDimensions(w, h, s);
+
 	} else if (isPopup){
-		$('#popup').remove();
 		isPopup = false;
+		$('#popup').remove();
+
+	} else {
+		console.log("we have a problem");
 	}
 });

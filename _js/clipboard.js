@@ -1,52 +1,134 @@
-function sizeCanvas(aR){
-	// var presentRatio = Math.round(WIDTH/HEIGHT*100)/100;
-	console.log(aR);
+function calcDimensions(e) {
+	var naturalHeight = e.target.naturalHeight; //496W * 360H,
+	var naturalWidth = e.target.naturalWidth;
+	var bigAspect = Math.round((naturalWidth/naturalHeight)*100)/100;
+	var smallAspect = (1/bigAspect).toFixed(2);
+	var winWidth = $('#baseline').width();
+	var winHeight = ($(window).height()) - 60;
+	var imageSrc = e.target.src;
+	var height, width;
 
-	var maxWidth = $('#baseline').innerWidth(); //width of // DONT USE TARGET DIV, use empty div container
-	var cssHeight = $("#div3").css("height"); //height from div3.css     starts at 0px
-	var cssHeightSliced =	cssHeight.slice(0, -2); //slicing 'px' off
-	var cssWidth = $("#div3").css("width"); //width from div3.css   //same as maxWidth, with px
-	var cssWidthSliced =	cssWidth.slice(0, -2); //slicing 'px' off
-	var windowY = $(window).height(); //window height
-	var canTop = Math.round($("#div3").position().top); //canvas distance from top
-	var canPad = $("#div3").outerHeight(true) - $("#div3").outerHeight(); //get padding value from canvas
-	var allPad = (canTop + canPad); //~82px
-	var breakHeight = windowY - allPad; //gives padding to new canvas height	//800-82
+	// console.log("natural height: " + naturalHeight + " natural width: " + naturalWidth);
+	// console.log("big aspect: " + bigAspect + " smallAspect: " + smallAspect);
+	// console.log("winWidth: " + winWidth + " winHeight: " + winHeight);
+	// console.log("bigAspect: " + bigAspect + "smallAspect: " + smallAspect);
 
-	// $("#resolution span").text(presentRatio);//add presentRation to DOM Menu
+	if (naturalWidth > winWidth){
+		width = winWidth;
+		height = Math.round(width * smallAspect);
+		// console.log("too wide");
 
-	fourThree();
-	// displayAspectRatio();
+	} else if (naturalHeight > winHeight){
+		height = naturalHeight;
+		width = Math.round(height * bigAspect); //or naturalWidth
+		// console.log("too tall");
 
-	/*4:3 Variables, 1.33*/ //http://andrew.hedges.name/experiments/aspect_ratio/
-	function fourThree() {
-		var maxHeight = Math.round((maxWidth/4)*3); //formula for 4:3 height
-		var minHeight = Math.round((breakHeight)*1.33);	//formula for 4:3 height
-
-		if (breakHeight < maxHeight){
-			$("#div3").css({"height": breakHeight, "width": minHeight});
-				HEIGHT = breakHeight;
-				WIDTH = minHeight;
-		} else {
-			$("#div3").css({"width": "100%", "height": maxHeight});
-		    	HEIGHT = maxHeight;
-				WIDTH = cssWidthSliced;
-		}
+	} else {
+		width = naturalWidth;
+		height = naturalHeight
+		// console.log("just right");
 	}
 
-	/*16:9 Variables 1.77*/
-	function sixteenNine(){
-		var maxHeight = Math.round((maxWidth/16)*9); //formula for 16:9 height
-		var minHeight = Math.round((breakHeight)*1.77);	//formula for 16:9 height
+	// var newDiv = $('<div/>', { id:'popup'});
+	// var newDiv = $('<div id="popup" style="width: ' + width + 'px; height: ' + height + 'px"></div>');
+	var newDiv = $('<div id="popup" style="width: ' + $('body').width() + 'px; height: ' + $('body').height() + 'px"></div>');
 
-		if (breakHeight < maxHeight){
-			$("#div3").css({"height": breakHeight, "width": minHeight});
-				HEIGHT = breakHeight;
-				WIDTH = minHeight;
-		} else {
-			$("#div3").css({"width": maxWidth, "height": maxHeight});
-		    	HEIGHT = maxHeight;
-				WIDTH = cssWidthSliced;
+	$('body').prepend(newDiv);
+	// $('#baseline').append(newDiv);
+
+	var popImage = $('<img src= "' + imageSrc + '" style="width: ' + width + 'px; height: ' + height + 'px">');
+	$('#popup').append(popImage);
+
+	(function centerPopup() {
+		var screenCenter = $('body').width()/2;
+		// console.log("screen Center: " + screenCenter);
+		var imageCenter = width/2;
+		var formula = screenCenter - imageCenter;
+		if(isPopup){
+			$('#popup img').css({marginLeft: formula })
+			// $('div:not(#popup)').css( "background-color", "yellow" );
+			// $('body').css( "background-color", "rgba(0, 0, 0, .75)" );
+
+			//place image (-) image center from windowCenter #popup margin-left
+			//dk gray backround css with alpha
+			// maybe remove popup from div after image centered
+			// rezize popup on window resize
 		}
-	}
+	}());
 }
+
+========================================================================
+calcDimensions: function (e) {
+	naturalHeight = e.target.naturalHeight; //496W * 360H,
+	naturalWidth = e.target.naturalWidth;
+	bigAspect = Math.round((naturalWidth/naturalHeight)*100)/100;
+	smallAspect = (1/bigAspect).toFixed(2);
+	winWidth = $('#baseline').width();
+	winHeight = ($(window).height()) - 60;
+	imageSrc = e.target.src;
+
+	// console.log("natural height: " + naturalHeight + " natural width: " + naturalWidth);
+	// console.log("big aspect: " + bigAspect + " smallAspect: " + smallAspect);
+	// console.log("winWidth: " + winWidth + " winHeight: " + winHeight);
+	// console.log("bigAspect: " + bigAspect + "smallAspect: " + smallAspect);
+
+	if (naturalWidth > winWidth){
+		width = winWidth;
+		height = Math.round(width * smallAspect);
+		// console.log("too wide");
+
+	} else if (naturalHeight > winHeight){
+		height = naturalHeight;
+		width = Math.round(height * bigAspect); //or naturalWidth
+		// console.log("too tall");
+
+	} else {
+		width = naturalWidth;
+		height = naturalHeight
+		// console.log("just right");
+	}
+
+	// var newDiv = $('<div/>', { id:'popup'});
+	// var newDiv = $('<div id="popup" style="width: ' + width + 'px; height: ' + height + 'px"></div>');
+	var newDiv = $('<div id="popup" style="width: ' + $('body').width() + 'px; height: ' + $('body').height() + 'px"></div>');
+
+	$('body').prepend(newDiv);
+	// $('#baseline').append(newDiv);
+
+	var popImage = $('<img src= "' + imageSrc + '" style="width: ' + width + 'px; height: ' + height + 'px">');
+	$('#popup').append(popImage);
+
+	(function centerPopup() {
+		var screenCenter = $('body').width()/2;
+		// console.log("screen Center: " + screenCenter);
+		var imageCenter = width/2;
+		var formula = screenCenter - imageCenter;
+		if(isPopup){
+			$('#popup img').css({marginLeft: formula })
+			// $('div:not(#popup)').css( "background-color", "yellow" );
+			// $('body').css( "background-color", "rgba(0, 0, 0, .75)" );
+
+			//place image (-) image center from windowCenter #popup margin-left
+			//dk gray backround css with alpha
+			// maybe remove popup from div after image centered
+			// rezize popup on window resize
+		}
+	}());
+}
+}
+
+==============================================
+(function centerPopup() {
+	var screenCenter = $('body').width()/2;
+	// console.log("screen Center: " + screenCenter);
+	var imageCenter = width/2;
+	var formula = screenCenter - imageCenter;
+	if(isPopup){
+		$('#popup img').css({marginLeft: formula })
+
+		//place image (-) image center from windowCenter #popup margin-left
+		//dk gray backround css with alpha
+		// maybe remove popup from div after image centered
+		// rezize popup on window resize
+	}
+}());
