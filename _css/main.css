@@ -133,6 +133,7 @@ body {
     /* hide the images until the plugin has run. the plugin will reveal the images*/
     opacity:0;
 
+
 }
 
 /*#baseline {
@@ -142,28 +143,15 @@ body {
 
 #popup {
     position: absolute;
-    background-color: rgba(0, 0, 0, .75);
+    background-color: rgba(0, 0, 0, .8);
     z-index: 200;
     margin-top: 0px;
-    /*overflow: hidden;*/
     overflow: auto;
-    /*margin-left: -15px;*/
-    /*padding-right: -5px;*/
-    /*padding-left: 15px;*/
-    /*margin-right: auto;*/
     margin-left: auto;
 }
 
 #popup img{
-    /*position: initial;*/
-    /*overflow: auto;*/
     margin-left: auto;
     border-radius: 4px;
-
-    /*background-image: _images/bling-tooth.jpg;*/
-    /*display: block;*/
-    /*border: 15px solid #FCF4DC;*/
-    /*-webkit-box-shadow: 5px 5px 12px black;
-    -moz-box-shadow: 5px 5px 12px black;
-    box-shadow: 5px 5px 12px black;*/
+    border: 2px solid #FCF4DC;
 }

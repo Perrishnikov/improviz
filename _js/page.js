@@ -3,54 +3,18 @@ var isPopup = false;
 
 /* ---------- READY ---------- */
 $(document).ready(function(){
-	$('.Collage').removeWhitespace().collagePlus();
-	$('.Collage').collagePlus( {
-            /*
-             * The ideal height you want your row to be. It won't set it exactly to this as
-             * plugin adjusts the row height to get the correct width
-             */
-            'targetHeight'    : 300,
-
-            /*
-             * how quickly you want images to fade in once ready can be in ms, "slow" or "fast"
-             * This is only used in the default fade in effect. Timing of the other effects is
-             * controlled in CSS
-             */
-            'fadeSpeed'       : "slow",
-
-            /*
-             * which effect you want to use for revealing the images (note CSS3 browsers only),
-             * Options are effect-1 to effect-6 but you can also code your own
-             * Default is the safest option for supporting older browsers
-             */
-            'effect'          : 'effect-6',
-
-            /*
-             * vertical: effects applied per row to give the impression of descending appearance
-             * horizontal: effects applied in order of appearance in the row to give a horizontal appearance
-             */
-            'direction'       : 'horizontal',
-
-            /*
-            * Sometimes there is just one image on the last row and it gets blown up to a huge size to fit the
-            * parent div width. To stop this behaviour, set this to true
-            */
-            'allowPartialLastRow'       : true
-        }
-    );
+		// getImages(); //comment out img in index.html
+	// OR if local //
+		$('.Collage').removeWhitespace().collagePlus(); collagePlus();
+	$(window).click(function(event) {
+		console.dir(event);
+		console.log($(document));
+	});
 });
-
 
 /* ---------- RESIZE ---------- */
 $(window).resize(function(){
-	$('.Collage').collagePlus( {
-			'targetHeight'    : 300,
-			'fadeSpeed'       : "slow",
-			'effect'          : 'effect-6',
-			'direction'       : 'horizontal',
-			'allowPartialLastRow'       : true
-		}
-	);
+	collagePlus();
 
 	if (isPopup) {
 		object.sizeDiv();
@@ -58,17 +22,36 @@ $(window).resize(function(){
 	}
 });
 
-
 /* ------------------------- FUNCTIONS ---------------------------- */
 
-(function revealMenu() {	//reveal Menu button (starts hidden in html)
-	$(window).keydown(function(event) {
-		if ( event.which == 77 ) {
-			$("#menu").toggle()
-			event.preventDefault();
+function getImages() {
+	var folder = "_images/";
+	$.ajax({
+		url : folder,
+		success: function (data) {
+			// console.log(data);
+			$(data).find("a").attr("href", function (i, val) {
+				// console.log("val: "+ val + " i: "+ i);
+				if( val.match(/\.(jpe?g|png|gif)$/) ) {
+					$(".Collage").append("<img src='"+ folder + val +"'>");
+					$('.Collage').removeWhitespace().collagePlus();
+					collagePlus();
+				}
+			});
 		}
 	});
-}());
+}
+
+function collagePlus() {
+	$('.Collage').collagePlus( {
+        'targetHeight': 300, //The ideal height you want your row to be. It won't set it exactly to this as plugin adjusts the row height to get the correct width
+        'fadeSpeed': "slow", //how quickly you want images to fade in once ready can be in ms, "slow" or "fast" This is only used in the default fade in effect. Timing of the other effects is controlled in CSS
+        'effect': 'effect-6', //which effect you want to use for revealing the images (note CSS3 browsers only), Options are effect-1 to effect-6 but you can also code your own Default is the safest option for supporting older browsers
+        'direction': 'horizontal', //vertical: effects applied per row to give the impression of descending appearance horizontal: effects applied in order of appearance in the row to give a horizontal appearance
+        'allowPartialLastRow': true //Sometimes there is just one image on the last row and it gets blown up to a huge size to fit the parent div width. To stop this behaviour, set this to true
+        }
+    );
+}
 
 var object = { //object to hold DIV and image
 	naturalHeight: "null",
@@ -104,7 +87,9 @@ var object = { //object to hold DIV and image
 
 	sizeDiv: function(){ //size DIV
 		var w = $(window).outerWidth();
-		var h = $('body').height();
+		var bh = $('body').height();
+		var wh = $(window).height();
+		var h = Math.max(bh,wh); //choose larger of window or body height
 		$('#popup').css({width: w, height: h });
 	},
 
@@ -164,5 +149,12 @@ $(window).click(function(e) {
 
 	} else {
 		console.log("we have a problem");
+	}
+});
+
+$(window).keydown(function(e) {  //reveal Menu button (starts hidden in html)
+	if ( e.which == 77 ) {
+		$("#menu").toggle()
+		e.preventDefault();
 	}
 });
