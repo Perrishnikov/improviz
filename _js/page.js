@@ -6,10 +6,8 @@ $(document).ready(function(){
 		// getImages(); //comment out img in index.html
 	// OR if local //
 		$('.Collage').removeWhitespace().collagePlus(); collagePlus();
-	$(window).click(function(event) {
-		console.dir(event);
-		console.log($(document));
-	});
+
+
 });
 
 /* ---------- RESIZE ---------- */
@@ -22,6 +20,7 @@ $(window).resize(function(){
 	}
 });
 
+
 /* ------------------------- FUNCTIONS ---------------------------- */
 
 function getImages() {
@@ -31,7 +30,6 @@ function getImages() {
 		success: function (data) {
 			// console.log(data);
 			$(data).find("a").attr("href", function (i, val) {
-				// console.log("val: "+ val + " i: "+ i);
 				if( val.match(/\.(jpe?g|png|gif)$/) ) {
 					$(".Collage").append("<img src='"+ folder + val +"'>");
 					$('.Collage').removeWhitespace().collagePlus();
@@ -95,7 +93,7 @@ var object = { //object to hold DIV and image
 
 	sizeImage: function () { //size the image
 		var winWidth = $(window).width();
-		var winHeight = ($(window).height()) - 60;
+		var winHeight = ($(window).height());
 		var height = "null";
 		var width = "null";
 
@@ -125,15 +123,23 @@ var object = { //object to hold DIV and image
 		}
 
 		function updateImage(){
-			var screenCenter = $(window).width()/2;	//find middle of screen
-			var imageCenter = width/2; //find middle of image
-			var formula = screenCenter - imageCenter; //location to place image in screen center
-			$('#popup img').css({width: width, height: height, marginLeft: formula });
+			var screenXCenter = $(window).width()/2;	//find middle of screen X
+			var imageXCenter = width/2; //find middle of image X
+			var formulaX = screenXCenter - imageXCenter; //location to place image in screen center X
+			// var screenYCenter = $(document).height()/2;
+			var scrollTopOnClick = $(document).scrollTop()	//top of window
+			var scrollPreventUp =
+
+			$(window).scroll(function(){
+				// console.log($(document).scrollTop());
+			});
+
+			$('#popup img').css({width: width, height: height, marginLeft: formulaX, marginTop: scrollTopOnClick });
 		}
 	}
 }
 
-$(window).click(function(e) {
+$(window).click(function(e) { //click image for popup
 
 	if (e.target.tagName === 'IMG' && isPopup === false) {
 		var w = e.target.naturalWidth;
@@ -148,7 +154,7 @@ $(window).click(function(e) {
 		$('#popup').remove();
 
 	} else {
-		console.log("we have a problem");
+		console.log("no problem");
 	}
 });
 
@@ -156,5 +162,12 @@ $(window).keydown(function(e) {  //reveal Menu button (starts hidden in html)
 	if ( e.which == 77 ) {
 		$("#menu").toggle()
 		e.preventDefault();
+	}
+});
+
+$(window).keydown(function(e) {  //remove popup window with esc keydown
+	if ( e.which == 27 ) {
+		isPopup = false;
+		$('#popup').remove();
 	}
 });
