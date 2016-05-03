@@ -1,12 +1,12 @@
 body {
     padding-top: 60px;
-    /*padding-bottom: 70px;*/
 }
 
 /*-----------------------------navbar--------------------------*/
 /*prevents items from stacking on collapse*/
 .navbar-nav>li, .navbar-nav {
     float: left!important;
+    z-index: 100;
 }
 .navbar-right {
     float: right!important;
@@ -34,6 +34,9 @@ body {
         margin-right: 10px;
         margin-left: 0px;
         font-size: 21px;
+    }
+    #popup {
+      width: 750px;
     }
 }
 
@@ -75,6 +78,7 @@ body {
         background-image: linear-gradient(to bottom,#f5f5f5 0,#e8e8e8 100%)!important;
         background-repeat: repeat-x;
     }
+
     #div3{
         margin-top: 5px; /*drops div 3 down to match navbar size increase*/
     }
@@ -112,6 +116,44 @@ body {
 
     /*border-radius: 6px;*/
 }
-#black{
-/*empty container*/
+
+.Collage{
+
+    /* define how much padding you want in between your images */
+    padding:10px;
+
+    }
+
+.Collage img a{
+    padding: 0px;
+    margin:  0px;
+    /* ensures padding at the bottom of the image is correct */
+    vertical-align:bottom;
+    margin: auto;
+    /* hide the images until the plugin has run. the plugin will reveal the images*/
+    opacity:0;
+
+
+}
+
+/*#baseline {
+    padding: 0px;
+    margin:  0px;
+}*/
+
+#popup {
+    position: absolute;
+    background-color: rgba(0, 0, 0, .8);
+    z-index: 200;
+    margin-top: 0px;
+    overflow: auto;
+    margin-left: auto;
+}
+
+#popup img{
+    margin-left: auto;
+    /*margin-top: 100px;*/
+    border: 2px solid #FCF4DC;
+    /*margin-top: -200px;*/
+
 }
