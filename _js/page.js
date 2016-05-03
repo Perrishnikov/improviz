@@ -1,16 +1,15 @@
-/* ---------- VARIABLES --------- */
+/* ------------------------- VARIABLES --------------------------- */
 var isPopup = false;
 
-/* ---------- READY ---------- */
+/* -------------------------- READY ------------------------------- */
 $(document).ready(function(){
 		// getImages(); //comment out img in index.html
 	// OR if local //
-		$('.Collage').removeWhitespace().collagePlus(); collagePlus();
-
-
+			$('.Collage').removeWhitespace().collagePlus();
+			collagePlus();
 });
 
-/* ---------- RESIZE ---------- */
+/* -------------------------- RESIZE ------------------------------ */
 $(window).resize(function(){
 	collagePlus();
 
@@ -19,7 +18,6 @@ $(window).resize(function(){
 		object.sizeImage();
 	}
 });
-
 
 /* ------------------------- FUNCTIONS ---------------------------- */
 
@@ -130,8 +128,9 @@ var object = { //object to hold DIV and image
 			var scrollTopOnClick = $(document).scrollTop()	//top of window
 			var scrollPreventUp =
 
-			$(window).scroll(function(){
-				// console.log($(document).scrollTop());
+			$(window).scroll(function(){ //when window scrolls, lock image to top of window
+				scrollTopOnClick = $(document).scrollTop()	//top of window
+				$('#popup img').css({marginTop: scrollTopOnClick });
 			});
 
 			$('#popup img').css({width: width, height: height, marginLeft: formulaX, marginTop: scrollTopOnClick });
