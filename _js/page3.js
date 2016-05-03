@@ -67,6 +67,7 @@ function selectAspect() {	//button click event for 16:9 and 4:3 toggles "active"
 		$("#toggleAspect button").removeClass("active"); 	  // remove "active" classes from all
 		$(this).addClass("active");		// add "active" class to the one we clicked
 		// console.log("Onclick: " + Number(aspectRatio));
+
 		resizeCanvas(aspectRatio); //sets new ratio on button click //convert to number from string
 
 	});
@@ -80,6 +81,7 @@ function revealMenu() {	//reveal Menu button (starts hidden in html)
 	$(window).keydown(function(event) {
 		if ( event.which == 77 ) {
 			$("#menu").toggle()
+			$("#menu").attr('class', 'open'); //automatically opens menu
 			event.preventDefault();
 		}
 	});
