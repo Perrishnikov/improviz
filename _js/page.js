@@ -3,10 +3,8 @@ var isPopup = false;
 
 /* -------------------------- READY ------------------------------- */
 $(document).ready(function(){
-		// getImages(); //comment out img in index.html
-	// OR if local //
-			$('.Collage').removeWhitespace().collagePlus();
-			collagePlus();
+	$('body').append().spin({ lines: 10, length: 24, width: 8, radius: 24 }); //http://fgnass.github.io/spin.js/
+	getImages();
 });
 
 /* -------------------------- RESIZE ------------------------------ */
@@ -23,16 +21,23 @@ $(window).resize(function(){
 
 function getImages() {
 	var folder = "_images/";
+	var imageArray = [];
 	$.ajax({
-		url : folder,
+		url : "_images/",
 		success: function (data) {
-			// console.log(data);
-			$(data).find("a").attr("href", function (i, val) {
+			$(data).find("a").attr("href", function (index, val) {
+
 				if( val.match(/\.(jpe?g|png|gif)$/) ) {
-					$(".Collage").append("<img src='"+ folder + val +"'>");
-					$('.Collage').removeWhitespace().collagePlus();
-					collagePlus();
+					imageArray.push("<img src='" + folder + val + "'>");
 				}
+			});
+		},
+		complete: function (){
+			$('.Collage').append(imageArray);
+			$('.container').imagesLoaded( function() { //https://github.com/desandro/imagesloaded
+				$('.Collage').removeWhitespace();
+				collagePlus();
+				$('body').spin(false);
 			});
 		}
 	});
@@ -153,7 +158,7 @@ $(window).click(function(e) { //click image for popup
 		$('#popup').remove();
 
 	} else {
-		console.log("no problem");
+		// console.log("no problem");
 	}
 });
 

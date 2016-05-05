@@ -124,7 +124,7 @@ body {
 
     }
 
-.Collage img a{
+.Collage img {
     padding: 0px;
     margin:  0px;
     /* ensures padding at the bottom of the image is correct */
@@ -134,8 +134,11 @@ body {
     opacity:0;
 
 
-}
 
+}
+.Collage :hover {
+    cursor: pointer;
+}
 /*#baseline {
     padding: 0px;
     margin:  0px;

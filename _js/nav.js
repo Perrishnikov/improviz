@@ -3,7 +3,7 @@ $('body').prepend(" \
 	<nav class='navbar navbar-inverse navbar-fixed-top'> \
 		<div class='container'> \
 			<ul class='nav navbar-nav navbar-left'> \
-				<li class='lead'><a href='index.html'>ImproViz</a></li> \
+				<li class='lead'><a href='/'>ImproViz</a></li> \
 				<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button'> 3D <span class='caret'></span></a> \
 					<ul class = 'dropdown-menu'> \
 					<!-- <li class='dropdown-header'><a>The 3d stuff</a></li> --> \
