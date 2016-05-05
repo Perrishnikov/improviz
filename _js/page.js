@@ -150,6 +150,7 @@ $(window).click(function(e) { //click image for popup
 		var h = e.target.naturalHeight; //496W * 360H,
 		var s = e.target.src;
 		isPopup = true;
+		e.preventDefault();
 
 		object.setDimensions(w, h, s);
 
