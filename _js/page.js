@@ -167,7 +167,6 @@ $(window).keydown(function(e) {  //reveal Menu button (starts hidden in html)
 	if ( e.which == 77 ) {
 		$("#menu").toggle()	//toggles menu on and off
 		$("#menu").attr('class', 'open'); //automatically opens menu
-		e.preventDefault();
 	}
 });
 

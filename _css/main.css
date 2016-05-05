@@ -91,6 +91,14 @@ body {
     color: inherit;
     background-color: #eee;
 }
+
+.container {
+  padding-right: 10px;
+  padding-left: 10px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
 /*---------------------------canvas------------------------------*/
 /* #canvasThree div, #canvas3 canvas*/
 
@@ -118,10 +126,9 @@ body {
 }
 
 .Collage{
-
+    overflow: hidden;
     /* define how much padding you want in between your images */
     padding:10px;
-
     }
 
 .Collage img {
