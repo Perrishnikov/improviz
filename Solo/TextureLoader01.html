@@ -6,12 +6,11 @@
 		body { margin: 10,10,10,10; overflow: hidden; background-color: #ffffff; }
 		canvas {width: 100%; height: 100%;}
     </style>
-	<script src="/js/three.min.js"></script>
-    <script src="/js/OrbitControls.js"></script>
-    <script type="text/javascript" src="/js/dat.gui.js"></script>
-  	<script src="/js/threex.windowresize.js"></script>
-
-
+	<script src="../_js/three-scripts/three.js"></script>
+	<script src="../_js/three-scripts/threex.windowresize.js"></script>
+	<script src="../_js/three-scripts/Detector.js"></script>
+	<script src="../_js/three-scripts/OrbitControls.js"></script>
+	<script src="../_js/three-scripts/dat.gui.js"></script>
 </head>
 <body>
 	<div id="3jsCanvas"></div>
@@ -73,13 +72,13 @@
 				});
 	*/
 				var matOne = new THREE.MeshBasicMaterial();
-	            matOne.map = THREE.ImageUtils.loadTexture('CompositeLivingRoom.jpg');
+	            matOne.map = THREE.ImageUtils.loadTexture('../_images/sphere/CompositeLivingRoom.jpg');
 	            //matOne.map = THREE.ImageUtils.loadTexture('Floor-LivingRoom.png');
 	            matOne.shading = THREE.SmoothShading;
 	            matOne.transparent = true;
 
 	            var matTwo = new THREE.MeshBasicMaterial();
-	            matTwo.map = THREE.ImageUtils.loadTexture('CompositeKitchenImproved.jpg');
+	            matTwo.map = THREE.ImageUtils.loadTexture('../_images/sphere/CompositeKitchenImproved.jpg');
 	            matTwo.shading = THREE.SmoothShading;
 	            matTwo.transparent = true;
 

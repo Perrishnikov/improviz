@@ -110,7 +110,6 @@ body {
     margin-left: auto;
     clear: both;
     overflow: hidden;
-    overflow: auto;
     z-index: 000;
 }
 
@@ -118,11 +117,6 @@ body {
     padding: 0px;
     margin:  0px;
     overflow: hidden;
-    overflow: auto;
-    /*margin-right: auto;
-    margin-left: auto;*/
-
-    /*border-radius: 6px;*/
 }
 
 .Collage{
