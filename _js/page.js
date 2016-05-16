@@ -5,6 +5,7 @@ var isPopup = false;
 $(document).ready(function(){
 	$('body').append().spin({ lines: 10, length: 24, width: 8, radius: 24 }); //http://fgnass.github.io/spin.js/
 	getImages();
+	loadSketchfab();
 });
 
 /* -------------------------- RESIZE ------------------------------ */
@@ -15,6 +16,8 @@ $(window).resize(function(){
 		object.sizeDiv();
 		object.sizeImage();
 	}
+
+
 });
 
 /* ------------------------- FUNCTIONS ---------------------------- */
@@ -143,6 +146,24 @@ var object = { //object to hold DIV and image
 	}
 }
 
+function loadSketchfab() { //load sketchfab images //https://sketchfab.com/developers/oembed //http://oembed.com//
+	var sketchArray = [
+		"https://sketchfab.com/oembed?url=https://sketchfab.com/models/255dc96cb1a24355bbc267ca5b71bab1",//tooth
+		"https://sketchfab.com/oembed?url=https://sketchfab.com/models/33c0d994fbc24e978c49f2fe201d7e29",
+		"https://sketchfab.com/oembed?url=https://sketchfab.com/models/a15240420f884e4f80c28af33a342459",//lantern
+	];
+
+	for (var i = 0; i < sketchArray.length; i++) {
+		var updatedSketch = sketchArray[i];
+		$.get(updatedSketch, function( data ) {
+			var a = data.html;
+			var b = '<div class="col-xs-12 col-sm-6 sketchfab">' + a + '</div>';
+			$( "#sketch .row" ).append(b);
+		});
+	}
+}
+
+//============================== Click ======================================//
 $(window).click(function(e) { //click image for popup
 
 	if (e.target.tagName === 'IMG' && isPopup === false) {
