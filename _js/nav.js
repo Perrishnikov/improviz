@@ -13,6 +13,7 @@ $('body').prepend(" \
 					<!-- <li><a href='3d_Cube.html'>3d Cube</a></li> --> \
 					</ul> \
 				</li> \
+				<li><a href='contact.html'>Contact</a></li> \
 			</ul> \
 			<ul class='nav navbar-nav navbar-right'> \
 				<li class='open' style='display: none' id='menu'><a href = '#' class='dropdown-toggle' data-toggle='dropdown' role='button'>Menu <b class= 'caret'></b></a> \
