@@ -17,7 +17,7 @@
 </head>
 
 <body>
-    <!-- Fixed navbar -->
+    <!-- Fixed navbar from nav.js-->
 
     <div class="container" id="baseline"></div>
 
@@ -37,25 +37,45 @@
 
     <div class="container Collage"> <!-- comment out when live. For local dev-->
                <!-- <img src="_images/Villa Schminke 05.png" alt="">
-               <img src="_images/bling-tooth.jpg" alt="">
-               <img src="_images/Villa Schminke 05.png">
-               <img src="_images/Villa Schminke 05.png" alt="...">
-               <img src="_images/Art Deco House 04.png" alt="...">
-               <img src="_images/Leslie 06.jpg" alt="...">
-               <img src="_images/Villa Schminke 05.png" alt="...">
-               <img src="_images/improviz-header.jpg" alt="" />
-               <img src="_images/bling-tooth.jpg" alt="">
-               <img src="_images/Art Deco House 04.png" alt="...">
-               <img src="_images/Leslie 06.jpg" alt="...">
-               <img src="_images/improviz-header.jpg" alt="" /> -->
+               <img src="_images/bling-tooth.jpg" alt="">-->
     </div>
 
-    <div class="container embed-responsive embed-responsive-16by9">
-        <video src="_images/Wrightstown Wellness Video v3.mp4" width="" height="" controls></video>
+    <div id="sketch" class="container"> <!--place Sketchfab embeds here-->
+        <div class="row"></div>
     </div>
-    <div class="container embed-responsive embed-responsive-4by3">
-        <video src="_images/confab-496.mp4" width="" height="" controls></video>
-    </div>
+
+    <!-- <div class="row">
+        <div class="col-md-6 embed-responsive embed-responsive-16by9">
+            <video class="embed-responsive-item" src="_images/Wrightstown Wellness Video v3.mp4" width="" height="" controls></video>
+        </div>
+        <div class="clearfix visible-md-block"></div>
+        <div class="col-md-6 embed-responsive embed-responsive-4by3">
+            <video class="embed-responsive-item" src="_images/confab-496.mp4" width="497" height="280" controls></video>
+        </div>
+    </div> -->
+    <form>
+        <div class="container" id="wufoo-zqm9w3p1o1e388">
+            Fill out my <a href="https://improviz.wufoo.com/forms/zqm9w3p1o1e388">online form</a>.
+        </div>
+    </form>
+
+    <script type="text/javascript">var zqm9w3p1o1e388;(function(d, t) {
+        var s = d.createElement(t), options = {
+            'userName':'improviz',
+            'formHash':'zqm9w3p1o1e388',
+            'autoResize':true,
+            'height':'517',
+            'async':true,
+            'host':'wufoo.com',
+            'header':'show',
+            'ssl':true};
+            s.src = ('https:' == d.location.protocol ? 'https://' : 'http://') + 'www.wufoo.com/scripts/embed/form.js';
+            s.onload = s.onreadystatechange = function() {
+                var rs = this.readyState; if (rs) if (rs != 'complete') if (rs != 'loaded') return;
+                try { zqm9w3p1o1e388 = new WufooForm();zqm9w3p1o1e388.initialize(options);zqm9w3p1o1e388.display(); } catch (e) {}};
+                var scr = d.getElementsByTagName(t)[0], par = scr.parentNode; par.insertBefore(s, scr);
+            })(document, 'script');
+    </script>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
     <script src="_js/bootstrap.min.js"></script>

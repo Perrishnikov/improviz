@@ -7,12 +7,12 @@ $('body').prepend(" \
 				<li class='dropdown'><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button'> 3D <span class='caret'></span></a> \
 					<ul class = 'dropdown-menu'> \
 					<!-- <li class='dropdown-header'><a>The 3d stuff</a></li> --> \
+					<li><a href='photosphere.html'>Photoshpere</a></li> \
 					<li><a href='3d_Cube.html'>3d Cube</a></li> \
 					<li class= 'divider'></li> \
 					<!-- <li><a href='3d_Cube.html'>3d Cube</a></li> --> \
 					</ul> \
 				</li> \
-				<li><a href='contact.html'>Contact</a></li> \
 			</ul> \
 			<ul class='nav navbar-nav navbar-right'> \
 				<li class='open' style='display: none' id='menu'><a href = '#' class='dropdown-toggle' data-toggle='dropdown' role='button'>Menu <b class= 'caret'></b></a> \

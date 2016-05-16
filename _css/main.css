@@ -110,7 +110,6 @@ body {
     margin-left: auto;
     clear: both;
     overflow: hidden;
-    overflow: auto;
     z-index: 000;
 }
 
@@ -118,11 +117,6 @@ body {
     padding: 0px;
     margin:  0px;
     overflow: hidden;
-    overflow: auto;
-    /*margin-right: auto;
-    margin-left: auto;*/
-
-    /*border-radius: 6px;*/
 }
 
 .Collage{
@@ -137,19 +131,14 @@ body {
     /* ensures padding at the bottom of the image is correct */
     vertical-align:bottom;
     margin: auto;
+    width: ;
+    height: ;
     /* hide the images until the plugin has run. the plugin will reveal the images*/
     opacity:0;
-
-
-
 }
 .Collage :hover {
     cursor: pointer;
 }
-/*#baseline {
-    padding: 0px;
-    margin:  0px;
-}*/
 
 #popup {
     position: absolute;
@@ -166,4 +155,19 @@ body {
     border: 2px solid #FCF4DC;
     /*margin-top: -200px;*/
 
+}
+.sketchfab {
+    margin-right: auto;
+    margin-left: auto;
+    overflow: hidden;
+    position: relative;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+iframe{
+    width: 100%;
+}
+#wufoo-zqm9w3p1o1e388{
+    padding-top: 20px;
 }
