@@ -16,8 +16,6 @@ $(window).resize(function(){
 		object.sizeDiv();
 		object.sizeImage();
 	}
-
-
 });
 
 /* ------------------------- FUNCTIONS ---------------------------- */
@@ -132,14 +130,7 @@ var object = { //object to hold DIV and image
 			var screenXCenter = $(window).width()/2;	//find middle of screen X
 			var imageXCenter = width/2; //find middle of image X
 			var formulaX = screenXCenter - imageXCenter; //location to place image in screen center X
-			// var screenYCenter = $(document).height()/2;
 			var scrollTopOnClick = $(document).scrollTop()	//top of window
-			var scrollPreventUp =
-
-			$(window).scroll(function(){ //when window scrolls, lock image to top of window
-				scrollTopOnClick = $(document).scrollTop()	//top of window
-				$('#popup img').css({marginTop: scrollTopOnClick });
-			});
 
 			$('#popup img').css({width: width, height: height, marginLeft: formulaX, marginTop: scrollTopOnClick });
 		}
@@ -149,8 +140,9 @@ var object = { //object to hold DIV and image
 function loadSketchfab() { //load sketchfab images //https://sketchfab.com/developers/oembed //http://oembed.com//
 	var sketchArray = [
 		"https://sketchfab.com/oembed?url=https://sketchfab.com/models/255dc96cb1a24355bbc267ca5b71bab1",//tooth
-		"https://sketchfab.com/oembed?url=https://sketchfab.com/models/33c0d994fbc24e978c49f2fe201d7e29",
+		"https://sketchfab.com/oembed?url=https://sketchfab.com/models/33c0d994fbc24e978c49f2fe201d7e29",//60 unit
 		"https://sketchfab.com/oembed?url=https://sketchfab.com/models/a15240420f884e4f80c28af33a342459",//lantern
+		"https://sketchfab.com/oembed?url=https://sketchfab.com/models/ca2023f1ac6d4d34b902043bbade5aec",//mandibular
 	];
 
 	for (var i = 0; i < sketchArray.length; i++) {
@@ -184,12 +176,12 @@ $(window).click(function(e) { //click image for popup
 	}
 });
 
-$(window).keydown(function(e) {  //reveal Menu button (starts hidden in html)
-	if ( e.which == 77 ) {
-		$("#menu").toggle()	//toggles menu on and off
-		$("#menu").attr('class', 'open'); //automatically opens menu
-	}
-});
+// $(window).keydown(function(e) {  //reveal Menu button (starts hidden in html)
+// 	if ( e.which == 77 ) {
+// 		$("#menu").toggle()	//toggles menu on and off
+// 		$("#menu").attr('class', 'open'); //automatically opens menu
+// 	}
+// });
 
 $(window).keydown(function(e) {  //remove popup window with esc keydown
 	if ( e.which == 27 ) {
