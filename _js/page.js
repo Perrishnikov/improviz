@@ -147,6 +147,7 @@ function loadSketchfab() { //load sketchfab images //https://sketchfab.com/devel
 
 	for (var i = 0; i < sketchArray.length; i++) {
 		var updatedSketch = sketchArray[i];
+
 		$.get(updatedSketch, function( data ) {
 			var a = data.html;
 			var b = '<div class="col-xs-12 col-sm-6 sketchfab">' + a + '</div>';
