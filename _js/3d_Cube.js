@@ -1,17 +1,19 @@
-var scene, camera, renderer;
-var WIDTH, HEIGHT;// Global so threejs can access
+/* ---------- READY ---------- */
+$(document).ready(function(){
+    selectAspect();		//sets initial aspect ratio from "active" button
+    cube3d();
+});
 
-function load3js(){
-
-
+function cube3d(){
     var SPEED = 0.01;
+    var cube;
 
     function init() {
         scene = new THREE.Scene();
 
-        initCube();
         initCamera();
         initRenderer();
+        initCube();
 
         $("#canvas3").append(renderer.domElement);
     }
@@ -25,19 +27,18 @@ function load3js(){
     function initRenderer() {
         renderer = new THREE.WebGLRenderer({canvas:canvas3, antialias: true });
         renderer.setSize(WIDTH, HEIGHT, true);
+        renderer.setClearColor( 0x000000 ); //set background color to black
         // console.log(renderer.getContextAttributes());
-        console.dir(renderer.getContext().canvas);
-        // console.log(document.body);
-        // renderer.setSize(?);
+        // console.dir(renderer.getContext().canvas);
     }
 
     function initCube() {
-        cube = new THREE.Mesh(new THREE.CubeGeometry(2, 2, 2), new THREE.MeshNormalMaterial());
+        cube = new THREE.Mesh(new THREE.CubeGeometry(2, 2, 2), new THREE.MeshNormalMaterial()); //(geometry, material)
         scene.add(cube);
     }
 
     function rotateCube() {
-        cube.rotation.x -= SPEED    ;
+        cube.rotation.x -= SPEED;
         cube.rotation.y -= SPEED;
         // cube.rotation.z -= SPEED * 3;
     }
@@ -51,16 +52,4 @@ function load3js(){
     init();
     render();
 
-    // == Link to page.js
-    $(window).resize(function() {
-        camera.aspect = WIDTH / HEIGHT;
-        camera.updateProjectionMatrix();
-        renderer.setSize( WIDTH, HEIGHT );
-    });
-
-    $("#toggleAspect button").click(function() {	//on button click, update the ACTIVE status and value
-        camera.aspect = WIDTH / HEIGHT;
-        camera.updateProjectionMatrix();
-        renderer.setSize( WIDTH, HEIGHT );
-    });
-};
+}

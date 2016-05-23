@@ -177,13 +177,6 @@ $(window).click(function(e) { //click image for popup
 	}
 });
 
-// $(window).keydown(function(e) {  //reveal Menu button (starts hidden in html)
-// 	if ( e.which == 77 ) {
-// 		$("#menu").toggle()	//toggles menu on and off
-// 		$("#menu").attr('class', 'open'); //automatically opens menu
-// 	}
-// });
-
 $(window).keydown(function(e) {  //remove popup window with esc keydown
 	if ( e.which == 27 ) {
 		isPopup = false;
