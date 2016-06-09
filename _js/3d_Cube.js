@@ -33,7 +33,7 @@ function cube3d(){
     }
 
     function initCube() {
-        cube = new THREE.Mesh(new THREE.CubeGeometry(2, 2, 2), new THREE.MeshNormalMaterial()); //(geometry, material)
+        cube = new THREE.Mesh(new THREE.CubeGeometry(2, 2, 2), new THREE.MeshNormalMaterial());
         scene.add(cube);
     }
 

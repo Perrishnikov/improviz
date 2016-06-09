@@ -23,7 +23,7 @@ function photosphere3d() {
 
         $("#canvas3").append(renderer.domElement);
     }
-
+        //helper function to rotate in degrees, not radians
         function rotateObject(object,degreeX=0, degreeY=0, degreeZ=0){
            degreeX = (degreeX * Math.PI)/180;
            degreeY = (degreeY * Math.PI)/180;
