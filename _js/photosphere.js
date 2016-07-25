@@ -1,6 +1,6 @@
 /* ---------- READY ---------- */
 $(document).ready(function(){
-    selectAspect();		//sets initial aspect ratio from "active" button
+    // selectAspect();		//sets initial aspect ratio from "active" button
     photosphere3d();
     $('body').css('backgroundColor', 'black');
 });
