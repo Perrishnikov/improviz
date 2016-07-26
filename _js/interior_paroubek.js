@@ -8,7 +8,7 @@ $(document).ready(function(){
 function photosphere3d() {
     var gui, sphere, controls;
     var rooms = [];
-    var paraInt = new THREE.TextureLoader().load('_images/paroubek/render_v3.jpg'); //http://threejs.org/docs/index.html#Reference/Loaders/ImageLoader
+    var paraInt = new THREE.TextureLoader().load('_images/paroubek/bake2.png'); //http://threejs.org/docs/index.html#Reference/Loaders/ImageLoader
     function init(){
         scene = new THREE.Scene();
 
@@ -32,7 +32,7 @@ function photosphere3d() {
         }
 
     function initCamera() {
-        camera = new THREE.PerspectiveCamera(75, WIDTH/HEIGHT, .1, 100);// https://github.com/mrdoob/three.js/issues/352
+        camera = new THREE.PerspectiveCamera(80, WIDTH/HEIGHT, .1, 100);// https://github.com/mrdoob/three.js/issues/352
         camera.position.set (0, 0, .1);
     }
 
